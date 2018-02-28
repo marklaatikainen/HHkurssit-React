@@ -1,0 +1,96 @@
+// @Base Colors
+$white: #fff;
+$black: #222;
+$black-real: #000;
+
+$black-rgba-03: rgba(0, 0, 0, .3);
+$black-rgba-05: rgba(0, 0, 0, .5);
+$black-rgba-08: rgba(0, 0, 0, .8);
+
+$silver: #979797;
+$gray: #666;
+$gray-dark: #444;
+$gray-light: #dcdcdc;
+$gray-verylight: #f5f5f5;
+
+// @Custom colors
+$linkcolor: #1E79BF;
+$linkhovercolor: #0056b3;
+$errorcolor: red;
+
+// Typography
+$mobile-font-size: 14px;
+$base-font-size: 16px;
+
+// layouts
+$container-wide: 1280px; // e.g. header and footer
+$container: 960px;
+
+$vertical-spacing: 20px;
+$vertical-spacing-big: 30px;
+
+$vert-spacing-unit: 30px;
+$horz-spacing-unit: 30px;
+
+// sizes
+$bp-tiny: 29.375em;
+$bp-small: 48em;
+$bp-medium: 62.5em;
+$bp-large: 75em;
+$bp-extra-large: 90em;
+
+$mobile-only: max-width $bp-tiny;
+$tiny: $bp-tiny, 'no-query' '.lt-ie9';
+$small: $bp-small, 'no-query' '.lt-ie9';
+$medium: $bp-medium, 'no-query' '.lt-ie9';
+$large: $bp-large;
+$extra-large: $bp-extra-large;
+
+$grids: 12;
+$grids: add-grid(16 at $bp-small);
+$output: 'float';
+
+$gutters: $horz-spacing-unit;
+
+// @Button
+.btn {
+    color: $black;
+    background: 0;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    display: block;
+    line-height: 45px;
+    margin: 0 auto 2em;
+    max-width: 160px;
+    position: relative;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 100%;
+    &:hover {
+        rect {
+            stroke-width: 5;
+            stroke-dasharray: 15, 310;
+            stroke-dashoffset: 48;
+        }
+    }
+    svg {
+        height: 45px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+    rect {
+        fill: none;
+        stroke: $black;
+        stroke-width: 2;
+        stroke-dasharray: 422, 0;
+        transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    &:hover {
+        stroke-width: 5;
+        stroke-dasharray: 15, 310;
+        stroke-dashoffset: 48;
+    }
+}

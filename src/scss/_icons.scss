@@ -1,0 +1,67 @@
+.icon-next {
+    &::before {
+      @include icon("\e808");
+    }
+  }
+  
+  .icon-prev {
+    &::before {
+      @include icon("\f060");
+    }
+  }
+  
+  .icon-video {
+    &::before {
+      @include icon('\e816');
+      @include font-size(26px);
+    }
+  }
+  
+  .icon-up {
+    &::before {
+      @include icon("\f062");
+    }
+  }
+  
+  .icon-down {
+    &::before {
+      @include icon("\f063");
+    }
+  }
+  
+  .icon-home {
+    &::before {
+      @include icon("\f015");
+    }
+  }
+  
+  .icon-mail {
+    &::before {
+      @include icon("\f003");
+    }
+  }
+  
+  .icon-person {
+    &::before {
+      @include icon("\f007");
+    }
+  }
+  
+  .icon-phone {
+    &::before {
+      @include icon("\f095");
+    }
+  }
+  
+  .icon-mobile {
+    &::before {
+      @include icon("\f10b");
+      font-size: 125%;
+    }
+  }
+  
+  .icon-map-marker {
+    &::before {
+      @include icon("\f041");
+    }
+  }

@@ -1,0 +1,42 @@
+.container-custom {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 960px;
+    @include breakpoint("md") {
+        max-width: 1000px;
+        box-sizing: border-box;
+        margin: auto;
+    }
+}
+
+.no-overflow {
+    overflow: hidden;
+}
+
+.content {
+    padding-top: 106px;
+    @include breakpoint("md") {
+        padding-top: 140px;
+        margin: 0 0px;
+    }
+}
+
+.grid-2 {
+    width: 49%;
+    float: left;
+    margin: 0 1% 0 0;
+}
+
+.grid-2::last-of-type {
+    margin: 0 0 0 1%;
+}
+
+.grid-2::nth-of-type(2n) {
+    margin: 0 0 0 1%;
+}
+
+.grid-2::nth-of-type(2n)::after {
+    content: "";
+    display: table;
+    clear: left;
+}

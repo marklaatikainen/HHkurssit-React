@@ -1,0 +1,39 @@
+{
+  "name": "hhlukkarit",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.17.1",
+    "jwt-decode": "^2.2.0",
+    "material-ui": "^0.20.0",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.1.2",
+    "react": "^16.2.0",
+    "react-checkbox-group": "^3.3.4",
+    "react-dom": "^16.2.0",
+    "react-modal": "^3.1.12",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.0",
+    "react-select": "^1.2.1",
+    "react-simple-dropdown": "^3.2.0",
+    "react-spinners": "^0.2.6",
+    "react-toastify": "^3.3.4",
+    "react-transition-group": "^2.2.1",
+    "react-validation": "^3.0.7"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6"
+  }
+}

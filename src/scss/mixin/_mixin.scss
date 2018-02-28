@@ -1,0 +1,119 @@
+@mixin breakpoint($class) {
+    @if $class==xs {
+        @media (max-width: 767px) {
+            @content;
+        }
+    }
+    @else if $class==sm {
+        @media (min-width: 768px) {
+            @content;
+        }
+    }
+    @else if $class==md {
+        @media (min-width: 992px) {
+            @content;
+        }
+    }
+    @else if $class==lg {
+        @media (min-width: 1200px) {
+            @content;
+        }
+    }
+    @else {
+        @warn "Breakpoint mixin supports: xs, sm, md, lg";
+    }
+}
+
+@mixin font-size($font-size) {
+    //font-size: $font-size * ($mobile-font-size / $base-font-size);
+    font-size: ($font-size / $base-font-size) * 1rem;
+    @include breakpoint($small) {
+        font-size: $font-size;
+    }
+}
+
+// Fonts
+@mixin font-family-main {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif, Nimbus Sans L;
+}
+
+@mixin font-family-main-condensed {
+    font-family: "Open Sans Condensed", Helvetica, Arial, sans-serif, Nimbus Sans L;
+}
+
+@mixin font-family-main-cursive {
+    font-family: "Leckerli One", Helvetica, Arial, sans-serif, Nimbus Sans L;
+}
+
+@mixin font-family-bodytext {
+    font-family: Georgia;
+}
+
+@mixin font-leckerli {
+    @include font-weight-book;
+    @include font-family-main-cursive;
+    letter-spacing: 0;
+    text-transform: none;
+    &::first-letter {
+        text-transform: capitalize;
+    }
+}
+
+// Icons
+@mixin icon($unicode: "") {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-family: "icomoon";
+    @if ($unicode) {
+        content: $unicode;
+    }
+}
+
+// Weights
+@mixin font-weight-book {
+    font-style: normal;
+    font-weight: 400;
+}
+
+@mixin font-weight-medium {
+    font-style: normal;
+    font-weight: 600;
+}
+
+// @todo remove usages of text-label, text-bold and text-liftup mixins and
+// remove the mixin definitions.
+@mixin text-label {
+    @include font-size(18px);
+    @include font-weight-book;
+    color: $gray;
+    text-transform: none;
+}
+
+@mixin text-bold {
+    @include font-size(16px);
+    @include font-weight-medium;
+}
+
+@mixin text-liftup {
+    @include font-size(22px);
+    @include font-weight-book;
+    color: $silver;
+    line-height: 1.5em;
+}
+
+@mixin vertically-center {
+    @include translateY(-50%);
+    position: absolute;
+    top: 50%;
+}
+
+@mixin clearfix {
+    &::before,
+    &::after {
+        content: "";
+        display: table;
+    }
+    &::after {
+        clear: both;
+    }
+}

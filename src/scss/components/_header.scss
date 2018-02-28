@@ -1,0 +1,30 @@
+header {
+    position: fixed;
+    height: 71px;
+    background-color: white;
+    width: 90%;
+    margin: 0 auto;
+    max-width: 960px;
+    z-index: 60;
+    @include breakpoint("md") {
+        height: 130px;
+        border: none;
+        max-width: 1000px;
+        z-index: 600;
+    }
+    .App-logo {
+        margin-left: 4px;
+        padding-top: 6px;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        @include breakpoint("md") {
+            padding-top: 16px;
+            margin: auto;
+            position: relative;
+            align-content: center;
+        }
+    }
+}
