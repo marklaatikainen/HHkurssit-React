@@ -33,38 +33,3 @@
     border-radius: 5px;
     border: 1px solid green;
 }
-
-.filtermodal__button--select,
-.filtermodal__button--deselect,
-.filtermodal__button--filter {
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-    outline: 0;
-}
-
-.filtermodal__button--filter {
-    width: 100%;
-    background-color: green;
-    border-color: #1e7e34;
-    color: white;
-}
-
-.filtermodal__button--select {
-    background-color: #b3bbd0;
-    // padding: 0.255rem 0.55rem;
-    // border-color: blue;
-    //    color: white;
-}
-
-.filtermodal__button--deselect {
-    background-color: #b3bbd0; 
-    // padding: 0.255rem 0.55rem;
-    // border-color: red;
-    //    color: white;
-}

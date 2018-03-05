@@ -10,7 +10,7 @@ const Login = () => (
     </div>
     <div className="login-footer">
       <Link to="/register">
-        <button>Rekisteröidy</button>
+        <button className="btn__bs btn__register">Rekisteröidy</button>
       </Link>
     </div>
   </div>

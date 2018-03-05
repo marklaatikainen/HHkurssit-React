@@ -242,7 +242,7 @@ export default class SearchForCourses extends Component {
 
           <div className="modal-footer">
             <button
-              className="filtermodal__button--filter"
+              className="btn__bs filtermodal__button--filter"
               onClick={() => this.closeFilterModal()}
             >
               Hae

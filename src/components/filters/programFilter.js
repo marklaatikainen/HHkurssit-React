@@ -78,13 +78,13 @@ export default class ProgramFilter extends Component {
             <p className="centerwbg">Koulutusohjelmat:</p>
             <hr />
             <button
-              className="filtermodal__button--select grid-2"
+              className="btn__bs filtermodal__button--select grid-2"
               onClick={() => this.selectAll()}
             >
               Valitse kaikki
             </button>
             <button
-              className="filtermodal__button--deselect grid-2"
+              className="btn__bs filtermodal__button--deselect grid-2"
               onClick={() => this.deSelectAll()}
             >
               Poista valinnat

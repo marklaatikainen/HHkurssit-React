@@ -37,8 +37,8 @@ export default class CourseModal extends Component {
         isOpen={this.state.modalIsOpen}
         onRequestClose={this.closeModal}
         contentLabel="Kurssin tiedot"
-        className="CourseModal"
-        overlayClassName="CourseModal--overlay"
+        className="modal CourseModal"
+        overlayClassName="modal--overlay"
       >
         <div className="modal-content">
           {/* <div id="icons" className="modal-header">
@@ -141,12 +141,12 @@ export default class CourseModal extends Component {
             <button
               id={this.props.data.opintotunnus}
               onClick={event => this.handleCourseUpdate(event)}
-              className="btn__modal--add grid-2"
+              className="btn__bs btn__modal--add grid-2"
             >
               Lisää omiin
             </button>
             <button
-              className="btn__modal--close grid-2"
+              className="btn__bs btn__modal--close grid-2"
               onClick={() => this.closeModal()}
             >
               Takaisin listaan

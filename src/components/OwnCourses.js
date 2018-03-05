@@ -63,7 +63,6 @@ export default class OwnCourses extends Component {
         loading: false
       });
     });
-
     this.setState({
       data: data,
       loading: false
@@ -108,17 +107,6 @@ export default class OwnCourses extends Component {
         <h5>Omat kurssit</h5>
         {this.state.data.length > 0 ? (
           <div>
-            <div className="searchDiv">
-              <input
-                type="text"
-                className="form-control col-md-12"
-                name="search"
-                id="search"
-                onKeyUp={() => this.courseFilter()}
-                placeholder="Hae kurssia.."
-              />
-              <br />
-            </div>
             <div className="form-content">
               <table id="allCoursesTable" className="table table-sm col-md-12">
                 <thead>
@@ -142,6 +130,7 @@ export default class OwnCourses extends Component {
                       <td>{kurssi.kurssinimi}</td>
                       <td>
                         <button
+                          className="btn__delete"
                           id={kurssi.opintotunnus}
                           onClick={event => this.handleCourseUpdate(event)}
                         >
@@ -154,7 +143,7 @@ export default class OwnCourses extends Component {
               </table>
             </div>
             <div className="content-footer">
-              <button onClick={() => restoreDefaults()}>
+              <button className="btn__restore" onClick={() => restoreDefaults()}>
                 Palauta alkuperäiset
               </button>
             </div>

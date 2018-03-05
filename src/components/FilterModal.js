@@ -117,7 +117,7 @@ export default class FilterModal extends Component {
         <br />
 
         <div className="modal-footer">
-          <button onClick={() => this.closeFilterModal()}>Hae</button>
+          <button className="btn__bs filtermodal__button--filter" onClick={() => this.closeFilterModal()}>Hae</button>
         </div>
       </Modal>
     );

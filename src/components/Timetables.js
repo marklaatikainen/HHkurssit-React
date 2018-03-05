@@ -3,6 +3,12 @@ import React, { Component } from "react";
 import { ScaleLoader } from "react-spinners";
 import Select from "react-select";
 import TimeModal from "./TimeModal";
+// webservice
+import {
+  getCourseTimetable,
+  getGroupTimetable,
+  getOwnTimetable
+} from "../services/WebService";
 
 export default class Timetables extends Component {
   constructor() {
@@ -14,13 +20,26 @@ export default class Timetables extends Component {
       data: [],
       selectedOption: "",
       modalIsOpen: false,
-      modalData: []
+      modalData: [],
+      group: "",
+      course: ""
     };
+
+    this.handleValue = this.handleValue.bind(this);
   }
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
   };
+
+  handleValue(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
 
   openModal(e) {
     this.setState({
@@ -29,8 +48,19 @@ export default class Timetables extends Component {
     });
   }
 
-  render() {
+  groupTime() {
+    console.log(this.state.group);
+  }
 
+  courseTime() {
+    console.log(this.state.course);
+  }
+
+  ownTime() {
+    console.log(this.state.selectedOption);
+  }
+
+  render() {
     return (
       <div>
         <h5>Aikataulut</h5>
@@ -52,40 +82,42 @@ export default class Timetables extends Component {
             ]}
             simpleValue
             clearable={false}
-            name="selected-period"
+            name="selectedOption"
             disabled={false}
             value={this.state.selectValue}
-            onChange={this.updateValue}
+            onChange={this.handleChange}
             searchable={false}
           />
           <br />
-          <button onClick={e => this.openModal(e)}>Hae</button>
+          <button onClick={() => this.ownTime()}>Hae</button>
         </div>
         <br />
         <b>Hae kurssin aikataulu</b>
         <input
           id="CourseSearch"
-          name="coursesearch"
+          name="course"
+          onChange={this.handleValue}
           className="input__search--timetable"
           placeholder="Kurssin tunnus"
           type="text"
         />
         <br />
         <br />
-        <button onClick={e => this.openModal(e)}>Hae</button>
+        <button onClick={() => this.courseTime()}>Hae</button>
         <br />
         <br />
         <b>Hae ryhmän aikataulu</b>
         <input
           id="GroupSearch"
-          name="groupsearch"
+          name="group"
+          onChange={this.handleValue}
           className="input__search--timetable"
           placeholder="Ryhmätunnus.."
           type="text"
         />
         <br />
         <br />
-        <button onClick={e => this.openModal(e)}>Hae</button>
+        <button onClick={() => this.groupTime()}>Hae</button>
         <ScaleLoader
           color={"#0056b3"}
           size={100}

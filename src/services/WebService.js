@@ -97,7 +97,7 @@ export async function getSettings() {
 export async function getOwnCourses() {
   const user = await userInfo();
   const res = await axios.get(
-    apiBaseUrl + "user/own/" + user.id,
+    apiBaseUrl + "user/" + user.id + "/" + user.userGroup,
     {
       headers: { Authorization: getToken() }
     }
@@ -123,7 +123,7 @@ export async function updateCourse(input) {
         }
       )
       .then(res => {
-        alert(res.data);
+        console.log(res);
         window.location.reload();
       })
       .catch(error => {
@@ -141,7 +141,7 @@ export async function updateCourse(input) {
         }
       )
       .then(res => {
-        alert(res.data);
+        console.log(res);
         window.location.reload();
       })
       .catch(error => {
@@ -159,7 +159,7 @@ export async function updateCourse(input) {
         }
       )
       .then(res => {
-        alert(res.data);
+        console.log(res);
         //        window.location.reload();
       })
       .catch(error => {
@@ -174,13 +174,12 @@ export async function updateCourse(input) {
 
 export async function restoreDefaults() {
   const user = await userInfo();
-
   axios
     .delete(apiBaseUrl + "user/own/restore/" + user.id, {
       headers: { Authorization: getToken() }
     })
     .then(res => {
-      alert(res.data);
+      console.log(res);
       window.location.reload();
     })
     .catch(error => {
@@ -192,13 +191,14 @@ export async function getOwnCoursesList() {
   const user = await userInfo();
 
   const ownList = [];
-
-  const res = await axios.get(apiBaseUrl + "kurssit/omat/" + user.id, {
+  const res = await axios.get(apiBaseUrl + "user/own" + user.id, {
     headers: { Authorization: getToken() }
   });
-  res.data.map(oma => {
-    return ownList.push(oma.opintotunnus);
-  });
+  if (res.data !== "") {
+    res.data.map(oma => {
+      return ownList.push(oma.opintotunnus);
+    });
+  }
   return ownList;
 }
 
@@ -206,13 +206,60 @@ export async function getGroupCoursesList() {
   const user = await userInfo();
 
   const groupList = [];
-
-  const res = await axios.get(apiBaseUrl + "ryhma/" + user.userGroup, {
+  const res = await axios.get(apiBaseUrl + "group/" + user.userGroup, {
     headers: { Authorization: getToken() }
   });
-
-  res.data.map(course => {
-    return groupList.push(course.kurssi_id);
-  });
+  if (res.data !== "") {
+    res.data.map(course => {
+      return groupList.push(course.kurssi_id);
+    });
+  }
   return groupList;
+}
+
+export async function getCourseTimetable(course) {
+  return new Promise(function(resolve, reject) {
+    axios
+      .get(apiBaseUrl + "time/course/" + course, {
+        headers: { Authorization: getToken() }
+      })
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(function(error) {
+        reject(Error(error));
+      });
+  });
+}
+
+export async function getGroupTimetable(group) {
+  return new Promise(function(resolve, reject) {
+    axios
+      .get(apiBaseUrl + "time/group/" + group, {
+        headers: { Authorization: getToken() }
+      })
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(function(error) {
+        reject(Error(error));
+      });
+  });
+}
+
+export async function getOwnTimetable() {
+  const user = await userInfo();
+
+  return new Promise(function(resolve, reject) {
+    axios
+      .get(apiBaseUrl + "time/user/" + user.id, {
+        headers: { Authorization: getToken() }
+      })
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(function(error) {
+        reject(Error(error));
+      });
+  });
 }
