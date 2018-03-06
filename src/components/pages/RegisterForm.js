@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-import { register } from "../services/WebService";
+import { register } from "../../services/WebService";
 import { ScaleLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import Transition from "react-transition-group/Transition";

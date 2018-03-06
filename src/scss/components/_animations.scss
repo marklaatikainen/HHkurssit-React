@@ -1,0 +1,11 @@
+@keyframes fadeInBg {
+    from {
+        background-color: rgba(255,255,255,0);
+    }
+    to {
+        background: rgba(100, 100, 100, 0.75);
+        @include breakpoint("md") {
+            background: rgba(0, 0, 0, 0.75);
+        }
+    }
+}

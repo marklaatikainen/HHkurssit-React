@@ -3,9 +3,9 @@ import {
   getOwnCourses,
   updateCourse,
   restoreDefaults
-} from "../services/WebService";
-import CourseModal from "./CourseModal";
-import { loggedIn } from "../components/Functions";
+} from "../../services/WebService";
+import CourseModal from "../modals/CourseModal";
+import { loggedIn } from "../../components/Functions";
 import { ScaleLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 

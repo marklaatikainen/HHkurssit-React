@@ -8,15 +8,15 @@ import Dropdown, {
 import { Route, Link, Switch, Redirect } from "react-router-dom";
 
 // components
-import Home from "./components/HomePage";
-import Login from "./components/LoginPage";
-import RegisterForm from "./components/RegisterForm";
-import Logout from "./components/LogoutPage";
-import Profile from "./components/Profile";
-import FindAllCourses from "./components/FindAllCourses";
-import Timetables from "./components/Timetables";
-import SearchForCourses from "./components/SearchForCourses";
-import OwnCourses from "./components/OwnCourses";
+import Home from "./components/pages/HomePage";
+import Login from "./components/pages/LoginPage";
+import RegisterForm from "./components/pages/RegisterForm";
+import Logout from "./components/pages/LogoutPage";
+import Profile from "./components/pages/Profile";
+import FindAllCourses from "./components/pages/FindAllCourses";
+import Timetables from "./components/pages/Timetables";
+import SearchForCourses from "./components/pages/SearchForCourses";
+import OwnCourses from "./components/pages/OwnCourses";
 
 // functions
 import { loggedIn } from "./components/Functions";

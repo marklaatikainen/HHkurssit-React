@@ -1,6 +1,5 @@
 .modal--overlay {
     position: fixed;
-    max-width: 970px;
     height: 100vh;
     top: 0;
     margin: 0 auto;
@@ -8,15 +7,15 @@
     right: 0;
     bottom: 0;
     z-index: 999;
-    background-color: rgba(255, 255, 255, 0.75);
+    padding: 5px;
 }
 
 .modal {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
     border: 1px solid #ccc;
     background: #fff;
     overflow: auto;
@@ -25,10 +24,12 @@
     outline: none;
     padding: 5px;
     z-index: 999;
-    // overflow: hidden;
-    // @include breakpoint("md") {
-    //     top: 140px;
-    // }
+    overflow-x: hidden;
+    max-width: 970px;
+    margin: 0 auto;
+    @include breakpoint("md") {
+        max-width: 700px;
+    }
 }
 
 .ReactModal_Content .ReactModal_Content--after-open {
@@ -47,9 +48,9 @@
 
 .ReactModal__Overlay {
     transition: margin-top 600ms ease-in-out;
-    background: rgba(0, 100, 100, 0.15);
     &--after-open {
         margin-top: 0;
+        animation: fadeInBg .5s linear 600ms forwards;
     }
     &--before-close {
         margin-top: 100vh;
@@ -73,15 +74,6 @@
     outline: 0;
     min-height: calc(100vh - 30px);
     box-sizing: border-box;
-    // @include breakpoint("md") {
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     right: 0;
-    //     bottom: 0;
-    //     min-height: 0px;
-    //     z-index: 99999;
-    // }
 }
 
 .modal-footer {

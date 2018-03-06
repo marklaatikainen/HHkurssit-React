@@ -8,17 +8,17 @@
     border-radius: 0.25rem;
     box-sizing: border-box;
     outline: 0;
+    max-width: 100%;
 }
 
 .btn__modal--close {
     background-color: green;
     border-color: #1e7e34;
     color: white;
-}
-
-.btn__modal--close:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
+    &:hover {
+        background-color: #218838;
+        border-color: #1e7e34;    
+    }
 }
 
 .btn__modal--add {
@@ -32,22 +32,19 @@
     background-color: green;
     border-color: #1e7e34;
     color: white;
-}
-
-.filtermodal__button--filter:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
+    &:hover {
+        background-color: #218838;
+        border-color: #1e7e34;    
+    }
 }
 
 .filtermodal__button--select,
 .filtermodal__button--deselect {
     background-color: #b3bbd0;
     border-color: #ced4da;
-}
-
-.filtermodal__button--select:hover,
-.filtermodal__button--deselect:hover {
-    background-color: #b5bad5;
+    &:hover {
+        background-color: #b5bad5;
+    }
 }
 
 .btn__register {
@@ -56,7 +53,15 @@
     color: white;
     width: 90vw;
     margin-top: 40px;
+    &:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
+    }
+    @include breakpoint("md") {
+        max-width: 200px;
+    }
 }
+
 
 .btn__delete {
     padding: 0.145rem 0.35rem;
@@ -70,12 +75,11 @@
     outline: 0;
     color: #fff;
     background-color: #dc3545;
-    border-color: #dc3545
-}
-
-.btn__delete:hover {
-    background-color: #c82333;
-    border-color: #bd2130
+    border-color: #dc3545;
+    &:hover {
+        background-color: #c82333;
+        border-color: #bd2130    
+    }
 }
 
 .btn__restore {
@@ -91,14 +95,8 @@
     color: #212529;
     background-color: #ffc107;
     border-color: #ffc107;
-}
-
-.btn__restore:hover {
-    background-color: #e0a800;
-    border-color: #d39e00
-}
-
-.btn__register:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
+    &:hover {
+        background-color: #e0a800;
+        border-color: #d39e00    
+    }
 }

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-// import { loggedIn } from "../components/Functions";
+// import { loggedIn } from "../../components/Functions";
 import { ScaleLoader } from "react-spinners";
 import Select from "react-select";
-import TimeModal from "./TimeModal";
+import TimeModal from "../modals/TimeModal";
 // webservice
-import {
-  getCourseTimetable,
-  getGroupTimetable,
-  getOwnTimetable
-} from "../services/WebService";
+// import {
+//   getCourseTimetable,
+//   getGroupTimetable,
+//   getOwnTimetable
+// } from "../services/WebService";
 
 export default class Timetables extends Component {
   constructor() {

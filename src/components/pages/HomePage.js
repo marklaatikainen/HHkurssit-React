@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import DashBoard from "./DashBoard";
-import { loggedIn } from "./Functions";
+import DashBoard from "../DashBoard";
+import { loggedIn } from "../Functions";
 
 export default class Home extends Component {
   state = {

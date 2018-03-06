@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { updateCourse } from "../services/WebService";
+import { updateCourse } from "../../services/WebService";
 import Modal from "react-modal";
 
 Modal.setAppElement("#root");

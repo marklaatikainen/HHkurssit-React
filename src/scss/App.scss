@@ -1,0 +1,32 @@
+// // mixin
+// @import "scss/mixin/_mixin.scss";
+// // variables
+// @import "scss/variables/_variables.scss";
+// // components
+// @import "scss/components/_container.scss";
+// @import "scss/components/_header.scss";
+// @import "scss/components/_dropdown.scss";
+// @import "scss/components/_toastmessage.scss";
+// @import "scss/components/_table.scss";
+// @import "scss/components/_text-input.scss";
+// @import "scss/components/_select.scss";
+// @import "scss/components/_button.scss";
+// // modals
+// @import "scss/components/_modal.scss";
+// @import "scss/components/_coursemodal.scss";
+// @import "scss/components/_filtermodal.scss";
+// @import "scss/components/_timetablemodal.scss";
+// // base
+// @import "scss/_base.scss";
+// @import "scss/_fonts.scss";
+// @import "scss/_frontpage.scss";
+// @import "scss/_icons.scss";
+
+@charset 'UTF-8';
+
+@import 'mixins/*';
+@import 'variables/*';
+
+
+@import 'base/*';
+@import 'components/**/*';

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { logout } from "./Functions";
+import { logout } from "../Functions";
 
 export default class Logout extends Component {
   componentDidMount() {

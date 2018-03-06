@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { userInfo, updateProfile } from "../services/WebService";
-import { loggedIn } from "../components/Functions";
-import { FormErrors } from "./FormErrors";
+import { userInfo, updateProfile } from "../../services/WebService";
+import { loggedIn } from "../../components/Functions";
+import { FormErrors } from "../FormErrors";
 import { ScaleLoader } from "react-spinners";
 
 const isEqual = (value, props, components) => {

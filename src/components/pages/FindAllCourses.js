@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { findAllCourses } from "../services/WebService";
-import CourseModal from "./CourseModal";
-import { loggedIn } from "../components/Functions";
+import { findAllCourses } from "../../services/WebService";
+import CourseModal from "../modals/CourseModal";
+import { loggedIn } from "../../components/Functions";
 import { ScaleLoader } from "react-spinners";
 
 export default class FindAllCourses extends Component {
@@ -101,10 +101,10 @@ export default class FindAllCourses extends Component {
                 <tr>
                   <th>Kurssitunnus</th>
                   <th>Kurssinimi</th>
-                  {/* <th className="hideInMobile">Op</th>
+                  <th className="hideInMobile">Op</th>
                   <th className="hideInMobile">Ohjelma</th>
                   <th className="hideInMobile">Toimipiste</th>
-                  <th className="hideInMobile">Alkaa</th> */}
+                  <th className="hideInMobile">Alkaa</th>
                 </tr>
               </thead>
               <tbody id="tbody">
@@ -119,14 +119,14 @@ export default class FindAllCourses extends Component {
                       </a>
                     </td>
                     <td>{kurssi.kurssinimi}</td>
-                    {/* <td className="hideInMobile">{kurssi.opintopisteet}</td>
+                    <td className="hideInMobile">{kurssi.opintopisteet}</td>
                     <td className="hideInMobile">{kurssi.ohjelma}</td>
                     <td className="hideInMobile">{kurssi.toimipiste}</td>
                     <td className="hideInMobile">
                       {new Date(kurssi.alkaa).toLocaleDateString("fi-FI", {
                         timeZone: "UTC"
                       })}
-                    </td> */}
+                    </td>
                   </tr>
                 ))}
               </tbody>
