@@ -9,6 +9,11 @@
     box-sizing: border-box;
     outline: 0;
     max-width: 100%;
+    .btn-link {
+        width: 100%;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 }
 
 .btn__modal--close {
@@ -17,7 +22,7 @@
     color: white;
     &:hover {
         background-color: #218838;
-        border-color: #1e7e34;    
+        border-color: #1e7e34;
     }
 }
 
@@ -34,7 +39,7 @@
     color: white;
     &:hover {
         background-color: #218838;
-        border-color: #1e7e34;    
+        border-color: #1e7e34;
     }
 }
 
@@ -62,7 +67,6 @@
     }
 }
 
-
 .btn__delete {
     padding: 0.145rem 0.35rem;
     font-size: 1rem;
@@ -78,7 +82,7 @@
     border-color: #dc3545;
     &:hover {
         background-color: #c82333;
-        border-color: #bd2130    
+        border-color: #bd2130
     }
 }
 
@@ -97,6 +101,6 @@
     border-color: #ffc107;
     &:hover {
         background-color: #e0a800;
-        border-color: #d39e00    
+        border-color: #d39e00
     }
 }
