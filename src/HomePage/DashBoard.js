@@ -38,8 +38,7 @@ class DashBoard extends Component {
         <br />
         <br />
         <i className="center">
-          Voit aloittaa selaamalla <a href="/courses">kaikkia kursseja</a> tai{" "}
-          <a href="/search">suodattamalla kursseja hakuehdoilla.</a>
+          Voit aloittaa selaamalla <a href="/courses">kaikkia kursseja tai suodattamalla haluamasi kurssit</a>
         </i>
         <br />
         <br />

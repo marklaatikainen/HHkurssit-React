@@ -67,7 +67,7 @@ export function course(state = {}, action) {
       };
     case courseConstants.UPDATE_COURSE_SUCCESS:
       return {
-        message: "ok"
+        message: action.message
       };
     case courseConstants.UPDATE_COURSE_FAILURE:
       return {
@@ -75,7 +75,7 @@ export function course(state = {}, action) {
       };
     case courseConstants.RESTORE_DEFAULTS_SUCCESS:
       return {
-        message: "ok"
+        message: action.message
       };
     case courseConstants.RESTORE_DEFAULTS_FAILURE:
       return {

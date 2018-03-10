@@ -3,88 +3,64 @@ import { connect } from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
-import { userActions } from "../_actions";
-import { ToastContainer, toast } from "react-toastify";
-import Transition from "react-transition-group/Transition";
+import { userActions, snackbarActions } from "../_actions";
 import { history } from "../_helpers";
 import { ScaleLoader } from "react-spinners";
-
-const ZoomInAndOut = ({ children, position, ...props }) => (
-  <Transition
-    {...props}
-    timeout={500}
-    onEnter={node => node.classList.add("zoomIn", "animate")}
-    onExit={node => {
-      node.classList.remove("zoomIn", "animate");
-      node.classList.add("zoomOut", "animate");
-    }}
-  >
-    {children}
-  </Transition>
-);
 
 class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: {
-        userName: "",
-        firstName: "",
-        lastName: "",
-        userGroup: "",
-        password: "",
-        password2: ""
-      },
-      submitted: false
+      username: "",
+      firstName: "",
+      lastName: "",
+      userGroup: "",
+      password: "",
+      password2: ""
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-    const { user } = this.state;
-    this.setState({
-      user: {
-        ...user,
-        [name]: value
-      }
-    });
-  }
-
-  toastMessage(alert) {
-    if (!toast.isActive(this.toastId)) {
-      this.toastId = toast.error(alert, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        hideProgressBar: true,
-        className: "toastMessage",
-        closeButton: false,
-        transition: ZoomInAndOut
-      });
-    }
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
-    this.setState({ submitted: true });
-    const { user } = this.state;
     const { dispatch } = this.props;
-    if (user.password === user.password2) {
+    const {
+      username,
+      firstName,
+      lastName,
+      userGroup,
+      password,
+      password2
+    } = this.state;
+    if (password === password2) {
       if (
-        user.userName &&
-        user.firstName &&
-        user.lastName &&
-        user.userGroup &&
-        user.password &&
-        user.password2
+        username !== "" &&
+        firstName !== "" &&
+        lastName !== "" &&
+        userGroup !== "" &&
+        password !== "" &&
+        password2 !== ""
       ) {
-        dispatch(userActions.register(user));
+        dispatch(userActions.register(this.state));
+      } else {
+        dispatch(
+          snackbarActions.openSnackbar(
+            "Täytä kaikki kentät!",
+            "yellow",
+            "black"
+          )
+        );
       }
     } else {
-      this.toastMessage("Salasanat eivät täsmää!");
+      dispatch(
+        snackbarActions.openSnackbar(
+          "Salasanat eivät täsmää!",
+          "yellow",
+          "black"
+        )
+      );
     }
   }
 
@@ -99,7 +75,7 @@ class RegisterPage extends React.Component {
       <div>
         <h3>Rekisteröinti</h3>
         {!registering ? (
-          <div className="loginForm">
+          <div className="registerForm">
             <MuiThemeProvider>
               <div>
                 <form name="form" onSubmit={this.handleSubmit}>
@@ -107,28 +83,36 @@ class RegisterPage extends React.Component {
                     hintText="Syötä käyttäjätunnuksesi"
                     name="userName"
                     floatingLabelText="Käyttäjätunnus"
-                    onChange={this.handleChange}
+                    onChange={(event, newValue) =>
+                      this.setState({ username: newValue })
+                    }
                   />
                   <br />
                   <TextField
                     hintText="Syötä etunimesi"
                     name="firstName"
                     floatingLabelText="Etunimi"
-                    onChange={this.handleChange}
+                    onChange={(event, newValue) =>
+                      this.setState({ firstName: newValue })
+                    }
                   />
                   <br />
                   <TextField
                     hintText="Syötä sukunimesi"
                     name="lastName"
                     floatingLabelText="Sukunimi"
-                    onChange={this.handleChange}
+                    onChange={(event, newValue) =>
+                      this.setState({ lastName: newValue })
+                    }
                   />
                   <br />
                   <TextField
                     hintText="Syötä ryhmätunnuksesi"
                     name="userGroup"
                     floatingLabelText="Ryhmätunnus"
-                    onChange={this.handleChange}
+                    onChange={(event, newValue) =>
+                      this.setState({ userGroup: newValue })
+                    }
                   />
                   <br />
                   <TextField
@@ -136,7 +120,9 @@ class RegisterPage extends React.Component {
                     name="password"
                     hintText="Syötä salasanasi"
                     floatingLabelText="Salasana"
-                    onChange={this.handleChange}
+                    onChange={(event, newValue) =>
+                      this.setState({ password: newValue })
+                    }
                   />
                   <br />
                   <TextField
@@ -144,7 +130,9 @@ class RegisterPage extends React.Component {
                     name="password2"
                     hintText="Salasana toiseen kertaan"
                     floatingLabelText="Toista salasana"
-                    onChange={this.handleChange}
+                    onChange={(event, newValue) =>
+                      this.setState({ password2: newValue })
+                    }
                   />
                   <br />
                   <RaisedButton
@@ -164,7 +152,6 @@ class RegisterPage extends React.Component {
                 </form>
               </div>
             </MuiThemeProvider>
-            <ToastContainer style={style} transition={ZoomInAndOut} />
           </div>
         ) : (
           <div className="sweet-loading">
@@ -180,12 +167,6 @@ const buttonStyle = {
   marginTop: 20
 };
 
-const style = {
-  width: "100%",
-  marginBottom: "0px",
-  bottom: 0
-};
-
 const cancelButtonStyle = {
   width: "100%",
   marginTop: 50,
@@ -193,9 +174,10 @@ const cancelButtonStyle = {
 };
 
 function mapStateToProps(state) {
-  const { registering } = state.registration;
+  const { registering, snackbar } = state.registration;
   return {
-    registering
+    registering,
+    snackbar
   };
 }
 

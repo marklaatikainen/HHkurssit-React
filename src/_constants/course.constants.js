@@ -23,5 +23,5 @@ export const courseConstants = {
 
   OWN_REQUEST: "OWN_REQUEST",
   OWN_SUCCESS: "OWN_SUCCESS",
-  OWN_FAILURE: "OWN_FAILURE"
+  OWN_FAILURE: "OWN_FAILURE",
 };

@@ -2,7 +2,7 @@ import decode from "jwt-decode";
 
 import { userConstants } from "../_constants";
 import { userService } from "../_services";
-import { alertActions } from "./";
+import { snackbarActions } from "../_actions";
 import { history } from "../_helpers";
 
 export const userActions = {
@@ -10,7 +10,8 @@ export const userActions = {
   logout,
   register,
   loggedIn,
-  getProfile
+  getProfile,
+  getUserInfo
 };
 
 function loggedIn() {
@@ -60,7 +61,7 @@ function login(username, password) {
       },
       error => {
         dispatch(failure("Kirjautuminen epäonnistui"));
-        dispatch(alertActions.error("Kirjautuminen epäonnistui"));
+        dispatch(snackbarActions.openSnackbar("Kirjautuminen epäonnistui", "red", "white"));
       }
     );
   };
@@ -89,11 +90,11 @@ function register(user) {
       user => {
         dispatch(success());
         history.push("/login");
-        dispatch(alertActions.success("Registration successful"));
+        dispatch(snackbarActions.openSnackbar("Registration successful", "green", "white"));
       },
       error => {
         dispatch(failure(error));
-        dispatch(alertActions.error(error));
+        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
       }
     );
   };
@@ -106,5 +107,31 @@ function register(user) {
   }
   function failure(error) {
     return { type: userConstants.REGISTER_FAILURE, error };
+  }
+}
+
+function getUserInfo() {
+  return dispatch => {
+    dispatch(request());
+
+    userService.getUserInfo().then(
+      user => {
+        dispatch(success(user));
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
+      }
+    );
+  };
+
+  function request() {
+    return { type: userConstants.USERINFO_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.USERINFO_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.USERINFO_FAILURE, error };
   }
 }

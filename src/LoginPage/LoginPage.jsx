@@ -1,37 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import { ScaleLoader } from "react-spinners";
-import { ToastContainer, toast } from "react-toastify";
-import Transition from "react-transition-group/Transition";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
 import { history } from "../_helpers";
-import { alertActions } from "../_actions";
+import { alertActions, snackbarActions } from "../_actions";
 import { userActions } from "../_actions";
-
-const ZoomInAndOut = ({ children, position, ...props }) => (
-  <Transition
-    {...props}
-    timeout={500}
-    onEnter={node => node.classList.add("zoomIn", "animate")}
-    onExit={node => {
-      node.classList.remove("zoomIn", "animate");
-      node.classList.add("zoomOut", "animate");
-    }}
-  >
-    {children}
-  </Transition>
-);
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      un: "",
-      pwd: "",
+      username: "",
+      password: "",
       submitted: false
     };
 
@@ -44,50 +28,32 @@ class LoginPage extends React.Component {
       dispatch(alertActions.clear());
     });
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  // componentWillReceiveProps(nextState) {
-  //   if (nextState.authentication !== undefined) {
-  //     console.log(nextState.authentication.message);
-  //   }
-  // }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
     this.setState({ submitted: true });
-    const { un, pwd } = this.state;
+    const { username, password } = this.state;
     const { dispatch } = this.props;
 
-    if (un && pwd) {
-      dispatch(userActions.login(un, pwd));
+    if (username && password) {
+      dispatch(userActions.login(username, password));
     } else {
-      this.toastMessage("Syötä käyttäjätunnus ja salasana");
+      dispatch(
+        snackbarActions.openSnackbar(
+          "Syötä käyttäjätunnus ja salasana",
+          "yellow",
+          "black"
+        )
+      );
     }
   }
 
   register(e) {
     e.preventDefault();
     history.push("/register");
-  }
-
-  toastMessage(alert) {
-    if (!toast.isActive(this.toastId)) {
-      this.toastId = toast.error(alert, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        hideProgressBar: true,
-        className: "toastMessage",
-        closeButton: false,
-        transition: ZoomInAndOut
-      });
-    }
   }
 
   render() {
@@ -103,18 +69,20 @@ class LoginPage extends React.Component {
                   <div>
                     <form onSubmit={event => this.handleSubmit(event)}>
                       <TextField
-                        name="un"
                         hintText="Syötä käyttäjätunnuksesi"
                         floatingLabelText="Käyttäjätunnus"
-                        onChange={this.handleChange}
+                        onChange={(event, newValue) =>
+                          this.setState({ username: newValue })
+                        }
                       />
                       <br />
                       <TextField
-                        name="pwd"
                         type="password"
                         hintText="Syötä salasanasi"
                         floatingLabelText="Salasana"
-                        onChange={this.handleChange}
+                        onChange={(event, newValue) =>
+                          this.setState({ password: newValue })
+                        }
                       />
                       <br />
                       <RaisedButton
@@ -137,14 +105,9 @@ class LoginPage extends React.Component {
               </div>
             ) : (
               <div className="sweet-loading">
-                <ScaleLoader
-                  color={"#0056b3"}
-                  size={100}
-                  loading={loggingIn}
-                />
+                <ScaleLoader color={"#0056b3"} size={100} loading={loggingIn} />
               </div>
             )}
-            <ToastContainer style={style} transition={ZoomInAndOut} />
           </div>
         </div>
       </div>
@@ -154,8 +117,10 @@ class LoginPage extends React.Component {
 
 function mapStateToProps(state) {
   const { loggingIn } = state.authentication;
+  const { snackbar } = state;
   return {
-    loggingIn
+    loggingIn,
+    snackbar
   };
 }
 
@@ -166,12 +131,6 @@ const buttonStyle = {
 const registerButtonStyle = {
   width: "100%",
   marginTop: 100
-};
-
-const style = {
-  width: "100%",
-  marginBottom: "0px",
-  bottom: 0
 };
 
 const connectedLoginPage = connect(mapStateToProps)(LoginPage);

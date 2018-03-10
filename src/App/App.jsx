@@ -5,12 +5,11 @@ import Dropdown, {
   DropdownTrigger,
   DropdownContent
 } from "react-simple-dropdown";
-import { ToastContainer, toast } from "react-toastify";
-import Transition from "react-transition-group/Transition";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import Snackbar from "material-ui/Snackbar";
 // redux
 import { history } from "../_helpers";
-import { userActions } from "../_actions";
-import { alertActions } from "../_actions";
+import { alertActions, userActions, snackbarActions } from "../_actions";
 import { PrivateRoute } from "../_components";
 // pages
 import { HomePage } from "../HomePage";
@@ -23,20 +22,6 @@ import { TimetablesPage } from "../TimetablesPage";
 
 import logo from "../logo.png";
 import "../App.css";
-
-const ZoomInAndOut = ({ children, position, ...props }) => (
-  <Transition
-    {...props}
-    timeout={500}
-    onEnter={node => node.classList.add("zoomIn", "animate")}
-    onExit={node => {
-      node.classList.remove("zoomIn", "animate");
-      node.classList.add("zoomOut", "animate");
-    }}
-  >
-    {children}
-  </Transition>
-);
 
 class App extends React.Component {
   constructor(props) {
@@ -54,20 +39,8 @@ class App extends React.Component {
     this.refs.dropdown.hide();
   }
 
-  toastMessage(alert) {
-    if (!toast.isActive(this.toastId)) {
-      this.toastId = toast.error(alert, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-        hideProgressBar: true,
-        className: "toastMessage",
-        closeButton: false,
-        transition: ZoomInAndOut
-      });
-    }
-  }
-
   render() {
-    const { alert } = this.props;
+    const { snackbar, dispatch } = this.props;
     return (
       <Router history={history}>
         <div className="App">
@@ -180,8 +153,18 @@ class App extends React.Component {
               <Redirect to="/" />
             </Switch>
           </div>
-          {alert.message && this.toastMessage(alert.message)}
-          <ToastContainer style={style} transition={ZoomInAndOut} />
+          <MuiThemeProvider>
+            <Snackbar
+              open={snackbar.open}
+              message={snackbar.message}
+              autoHideDuration={snackbar.duration}
+              bodyStyle={{
+                backgroundColor: snackbar ? snackbar.type : "grey"
+              }}
+              contentStyle={{ color: snackbar ? snackbar.color : "white" }}
+              onRequestClose={() => dispatch(snackbarActions.closeSnackbar())}
+            />
+          </MuiThemeProvider>
         </div>
       </Router>
     );
@@ -189,18 +172,12 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { alert, isLoading } = state;
+  const { alert, snackbar } = state;
   return {
     alert,
-    isLoading
+    snackbar
   };
 }
-
-const style = {
-  width: "100%",
-  marginBottom: "0px",
-  bottom: 0
-};
 
 const connectedApp = connect(mapStateToProps)(App);
 export { connectedApp as App };

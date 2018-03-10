@@ -94,7 +94,7 @@ hr {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(78, 78, 128, 0.75), rgba(0, 0, 0, 0));
 }
 
-.loginForm {
+.loginForm, .registerForm {
     width: 90%;
     margin: 0 auto;
     max-width: 960px;

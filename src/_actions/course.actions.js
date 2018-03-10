@@ -1,6 +1,7 @@
 // import { history } from "../_helpers";
 import { courseConstants } from "../_constants";
 import { courseService } from "../_services";
+import { snackbarActions } from ".";
 
 export const courseActions = {
   getSettings,
@@ -84,13 +85,20 @@ function setDataToTable() {
 
 function updateCourse(course) {
   return dispatch => {
-    courseService
-      .updateCourse(course)
-      .then(data => dispatch(success()), error => dispatch(failure(error)));
+    courseService.updateCourse(course).then(
+      data => {
+        dispatch(getOwnCourses(data));
+        dispatch(snackbarActions.openSnackbar(data, "green", "white"));
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
+      }
+    );
   };
 
-  function success() {
-    return { type: courseConstants.UPDATE_COURSE_SUCCESS };
+  function success(message) {
+    return { type: courseConstants.UPDATE_COURSE_SUCCESS, message };
   }
   function failure(error) {
     return { type: courseConstants.UPDATE_COURSE_FAILURE, error };
@@ -121,11 +129,11 @@ function restoreDefaults() {
   return dispatch => {
     courseService
       .restoreDefaults()
-      .then(data => dispatch(success()), error => dispatch(failure(error)));
+      .then(data => dispatch(success(data)), error => dispatch(failure(error)));
   };
 
-  function success() {
-    return { type: courseConstants.RESTORE_DEFAULTS_SUCCESS };
+  function success(message) {
+    return { type: courseConstants.RESTORE_DEFAULTS_SUCCESS, message };
   }
   function failure(error) {
     return { type: courseConstants.RESTORE_DEFAULTS_FAILURE, error };

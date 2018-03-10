@@ -7,6 +7,7 @@ import { course } from "./course.reducer";
 import { alert } from "./alert.reducer";
 import { modal } from "./modal.reducer";
 import { filter } from "./filter.reducer";
+import { snackbar } from "./snackbar.reducer";
 
 const rootReducer = combineReducers({
   authentication,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   course,
   filter,
   modal,
-  alert
+  alert,
+  snackbar
 });
 
 export default rootReducer;

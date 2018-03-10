@@ -30,15 +30,6 @@ function getProgramList() {
   });
 }
 
-async function getUserInfo() {
-  const res = await axios.get(
-    apiBaseUrl + "user/" + userService.getProfile().sub,
-    {
-      headers: { Authorization: userService.getToken() }
-    }
-  );
-  return res.data;
-}
 
 function getAllCourses() {
   return axios
@@ -54,7 +45,7 @@ function getAllCourses() {
 }
 
 async function getOwnCourses() {
-  const user = await getUserInfo();
+  const user = await userService.getUserInfo();
 
   return axios
     .get(apiBaseUrl + "user/" + user.id + "/" + user.userGroup, {
@@ -69,7 +60,7 @@ async function getOwnCourses() {
 }
 
 async function updateCourse(course) {
-  const user = await getUserInfo();
+  const user = await userService.getUserInfo();
 
   const groupList = await getGroupCoursesList();
   const ownList = await getOwnCoursesList();
@@ -86,7 +77,7 @@ async function updateCourse(course) {
         }
       )
       .then(res => {
-        return res.data;
+        return res.status;
       })
       .catch(error => {
         return Promise.reject(error);
@@ -103,7 +94,7 @@ async function updateCourse(course) {
         }
       )
       .then(res => {
-        return res.data;
+        return res.status;
       })
       .catch(error => {
         return Promise.reject(error);
@@ -120,7 +111,7 @@ async function updateCourse(course) {
         }
       )
       .then(res => {
-        return res.data;
+        return res.status;
       })
       .catch(error => {
         return Promise.reject(error);
@@ -133,7 +124,7 @@ async function updateCourse(course) {
 }
 
 async function restoreDefaults() {
-  const user = await getUserInfo();
+  const user = await userService.getUserInfo();
 
   return axios
     .delete(apiBaseUrl + "user/own/restore/" + user.id, {
@@ -143,12 +134,12 @@ async function restoreDefaults() {
       if (res.status !== 200) {
         return Promise.reject(res.statusText);
       }
-      return res.data;
+      return res.status;
     });
 }
 
 async function getOwnCoursesList() {
-  const user = await getUserInfo();
+  const user = await userService.getUserInfo();
 
   const ownList = [];
   const res = await axios.get(apiBaseUrl + "user/own" + user.id, {
@@ -163,7 +154,7 @@ async function getOwnCoursesList() {
 }
 
 async function getGroupCoursesList() {
-  const user = await getUserInfo();
+  const user = await userService.getUserInfo();
 
   const groupList = [];
   const res = await axios.get(apiBaseUrl + "group/" + user.userGroup, {
@@ -208,7 +199,7 @@ async function getGroupTimetable(group) {
 }
 
 async function getOwnTimetable() {
-  const user = await getUserInfo();
+  const user = await userService.getUserInfo();
 
   return new Promise(function(resolve, reject) {
     axios

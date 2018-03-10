@@ -6,13 +6,21 @@ export const userService = {
   logout,
   register,
   getProfile,
-  getToken
+  getToken,
+  getUserInfo
 };
 
 const apiBaseUrl = "https://hhkurssit.markl.fi/";
 
 function logout() {
   localStorage.removeItem("authorization_token");
+}
+
+async function getUserInfo() {
+  const res = await axios.get(apiBaseUrl + "user/" + getProfile().sub, {
+    headers: { Authorization: getToken() }
+  });
+  return res.data;
 }
 
 function getProfile() {
@@ -44,7 +52,6 @@ function login(username, password) {
 
     const auth = response.headers.authorization;
     setToken(auth);
-    console.log(getProfile);
     return getProfile();
   });
 }
@@ -60,7 +67,6 @@ function register(user) {
 
   return axios.post(apiBaseUrl + "users/register", user).then(response => {
     if (response.status !== 200) {
-      console.log(response.statusText);
       return Promise.reject(response.statusText);
     }
     return response.data;
