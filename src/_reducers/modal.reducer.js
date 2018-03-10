@@ -32,7 +32,8 @@ export function modal(state = {}, action) {
       };
     case modalConstants.SHOW_TIME_MODAL:
       return {
-        time_open: true
+        time_open: true,
+        time: action.time
       };
     case modalConstants.HIDE_TIME_MODAL:
       return {

@@ -1,7 +1,7 @@
 // import { history } from "../_helpers";
 import { courseConstants } from "../_constants";
 import { courseService } from "../_services";
-import { snackbarActions } from ".";
+import { snackbarActions } from "../_actions";
 
 export const courseActions = {
   getSettings,
@@ -97,9 +97,6 @@ function updateCourse(course) {
     );
   };
 
-  function success(message) {
-    return { type: courseConstants.UPDATE_COURSE_SUCCESS, message };
-  }
   function failure(error) {
     return { type: courseConstants.UPDATE_COURSE_FAILURE, error };
   }

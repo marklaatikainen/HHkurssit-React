@@ -64,14 +64,14 @@ function closeFilterModal(state) {
   }
 }
 
-function openTimeModal() {
+function openTimeModal(time) {
   return dispatch => {
     document.body.classList.add("no-overflow");
-    dispatch(open());
+    dispatch(open(time));
   };
 
-  function open() {
-    return { type: modalConstants.SHOW_TIME_MODAL };
+  function open(time) {
+    return { type: modalConstants.SHOW_TIME_MODAL, time };
   }
 }
 

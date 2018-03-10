@@ -8,6 +8,7 @@ import { alert } from "./alert.reducer";
 import { modal } from "./modal.reducer";
 import { filter } from "./filter.reducer";
 import { snackbar } from "./snackbar.reducer";
+import { time } from "./time.reducer";
 
 const rootReducer = combineReducers({
   authentication,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   filter,
   modal,
   alert,
-  snackbar
+  snackbar,
+  time
 });
 
 export default rootReducer;

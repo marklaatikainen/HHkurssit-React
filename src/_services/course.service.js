@@ -13,23 +13,30 @@ export const courseService = {
 const apiBaseUrl = "https://hhkurssit.markl.fi/";
 
 function getSettings() {
-  return axios.get(apiBaseUrl + "settings", {}).then(res => {
-    if (res.status !== 200) {
-      return Promise.reject(res.statusText);
-    }
-    return res.data[0];
-  });
+  return axios
+    .get(apiBaseUrl + "settings", {
+      headers: { Authorization: userService.getToken() }
+    })
+    .then(res => {
+      if (res.status !== 200) {
+        return Promise.reject(res.statusText);
+      }
+      return res.data[0];
+    });
 }
 
 function getProgramList() {
-  return axios.get(apiBaseUrl + "course/program", {}).then(res => {
-    if (res.status !== 200) {
-      return Promise.reject(res.statusText);
-    }
-    return res.data.vaihtoehdot;
-  });
+  return axios
+    .get(apiBaseUrl + "course/program", {
+      headers: { Authorization: userService.getToken() }
+    })
+    .then(res => {
+      if (res.status !== 200) {
+        return Promise.reject(res.statusText);
+      }
+      return res.data.vaihtoehdot;
+    });
 }
-
 
 function getAllCourses() {
   return axios
@@ -68,7 +75,7 @@ async function updateCourse(course) {
   // mikäli kummastakaan listasta ei löydy kurssia, niin lisätään se omiin
   if (groupList.indexOf(course) === -1 && ownList.indexOf(course) === -1) {
     // Lisätään kurssi
-    axios
+    return axios
       .post(
         apiBaseUrl + "user/own/l/" + user.id + "/" + course,
         {},
@@ -77,7 +84,7 @@ async function updateCourse(course) {
         }
       )
       .then(res => {
-        return res.status;
+        return "Kurssi lisätty";
       })
       .catch(error => {
         return Promise.reject(error);
@@ -85,7 +92,7 @@ async function updateCourse(course) {
 
     // mikäli tämä on ryhmän kurssi, niin lisätään se omiin poistettuna
   } else if (groupList.indexOf(course) !== -1) {
-    axios
+    return axios
       .post(
         apiBaseUrl + "user/own/p/" + user.id + "/" + course,
         {},
@@ -94,7 +101,7 @@ async function updateCourse(course) {
         }
       )
       .then(res => {
-        return res.status;
+        return "Kurssi poistettu";
       })
       .catch(error => {
         return Promise.reject(error);
@@ -102,7 +109,7 @@ async function updateCourse(course) {
 
     // mikäli omista löytyy, niin poistetaan se
   } else if (ownList.indexOf(course) !== -1) {
-    axios
+    return axios
       .delete(
         apiBaseUrl + "user/own/" + user.id + "/" + course,
         {},
@@ -111,7 +118,7 @@ async function updateCourse(course) {
         }
       )
       .then(res => {
-        return res.status;
+        return "Kurssi poistettu";
       })
       .catch(error => {
         return Promise.reject(error);
@@ -166,51 +173,4 @@ async function getGroupCoursesList() {
     });
   }
   return groupList;
-}
-
-async function getCourseTimetable(course) {
-  return new Promise(function(resolve, reject) {
-    axios
-      .get(apiBaseUrl + "time/course/" + course, {
-        headers: { Authorization: userService.getToken() }
-      })
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(function(error) {
-        reject(Error(error));
-      });
-  });
-}
-
-async function getGroupTimetable(group) {
-  return new Promise(function(resolve, reject) {
-    axios
-      .get(apiBaseUrl + "time/group/" + group, {
-        headers: { Authorization: userService.getToken() }
-      })
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(function(error) {
-        reject(Error(error));
-      });
-  });
-}
-
-async function getOwnTimetable() {
-  const user = await userService.getUserInfo();
-
-  return new Promise(function(resolve, reject) {
-    axios
-      .get(apiBaseUrl + "time/user/" + user.id, {
-        headers: { Authorization: userService.getToken() }
-      })
-      .then(res => {
-        resolve(res.data);
-      })
-      .catch(function(error) {
-        reject(Error(error));
-      });
-  });
 }

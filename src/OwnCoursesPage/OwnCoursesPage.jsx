@@ -46,7 +46,9 @@ class OwnCoursesPage extends Component {
                           className="btn__delete"
                           id={kurssi.opintotunnus}
                           onClick={event =>
-                            dispatch(courseActions.updateCourse(event))
+                            dispatch(
+                              courseActions.updateCourse(event.target.id)
+                            )
                           }
                         >
                           <i className="fa fa-trash-o" />

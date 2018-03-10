@@ -1,33 +1,142 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { ScaleLoader } from "react-spinners";
 
-import { CourseModal, DataTable, FilterInput } from "../_components";
+import { FilterModal } from "../_components";
+import { modalActions, courseActions } from "../_actions";
+import { CourseModal } from "../_components";
 
-export class ShowAllPage extends Component {
+class ShowAllPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      text: "",
-      count: 0
+      count: null
     };
   }
 
+  async componentDidMount() {
+    this.props.dispatch(courseActions.getAllCourses());
+  }
+
+  courseFilter() {
+    // Declare variables
+    let filter, table, tr, td, i, counter;
+    filter = document.getElementById("search");
+    table = document.getElementById("CoursesTable");
+    tr = table.getElementsByTagName("tr");
+    counter = 0;
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[1];
+      if (td) {
+        if (
+          td.innerHTML.toUpperCase().indexOf(filter.value.toUpperCase()) > -1
+        ) {
+          tr[i].style.display = "";
+          counter++;
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+    if (this.state.count !== counter) this.setState({ count: counter });
+  }
+
   render() {
+    const { dispatch, loading } = this.props;
+    const { data } = this.props.course;
+
     return (
       <div>
         <div>
-          <FilterInput text={f => this.setState({ text: f })} />
+          <div className="search_container--filter">
+            <div className="search_container--filter--group">
+              <input
+                id="search"
+                name="search"
+                className="search_container--filter--input"
+                onKeyUp={e => this.courseFilter()}
+                placeholder="Hae kurssia.."
+                type="text"
+              />
+              <span className="search_container--filter--input-addon">
+                <a
+                  className="filter-open"
+                  href="#modal"
+                  onClick={() => dispatch(modalActions.openFilterModal())}
+                >
+                  <i className="fa fa-ellipsis-v" />
+                </a>
+              </span>
+            </div>
+            <FilterModal />
+          </div>
           <small>
             <i>hakuehdoilla löytyi {this.state.count} kurssia</i>
           </small>
           <br />
-          <DataTable
-            count={c => this.setState({ count: c })}
-            fltr={this.state.text}
-          />
+          <div>
+            {data ? (
+              <table id="CoursesTable" className="table__data">
+                {this.state.count === null &&
+                  this.setState({ count: data.length })}
+                <thead>
+                  <tr>
+                    <th>Kurssitunnus</th>
+                    <th>Kurssinimi</th>
+                    <th className="hideInMobile">Op</th>
+                    <th className="hideInMobile">Ohjelma</th>
+                    <th className="hideInMobile">Toimipiste</th>
+                    <th className="hideInMobile">Alkaa</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody">
+                  {data.map((kurssi, i) => (
+                    <tr key={i}>
+                      <td className="nowrap">
+                        <a
+                          href="#moreinfo"
+                          onClick={() =>
+                            dispatch(modalActions.openCourseModal(kurssi))
+                          }
+                        >
+                          {kurssi.opintotunnus}
+                        </a>
+                      </td>
+                      <td>{kurssi.kurssinimi}</td>
+                      <td className="hideInMobile">{kurssi.opintopisteet}</td>
+                      <td className="hideInMobile">{kurssi.ohjelma}</td>
+                      <td className="hideInMobile">{kurssi.toimipiste}</td>
+                      <td className="hideInMobile">
+                        {new Date(kurssi.alkaa).toLocaleDateString("fi-FI", {
+                          timeZone: "UTC"
+                        })}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <div className="sweet-loading">
+                <ScaleLoader color={"#0056b3"} size={100} loading={loading} />
+              </div>
+            )}
+          </div>
           <CourseModal />
         </div>
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  const { modal, course } = state;
+  return {
+    modal,
+    course
+  };
+}
+
+const connectedShowAllPage = connect(mapStateToProps)(ShowAllPage);
+export { connectedShowAllPage as ShowAllPage };

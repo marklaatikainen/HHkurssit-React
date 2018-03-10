@@ -4,3 +4,4 @@ export * from "./course.constants";
 export * from "./modal.constants";
 export * from "./filter.constants";
 export * from "./snackbar.constants";
+export * from "./time.constants";

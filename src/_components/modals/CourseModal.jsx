@@ -2,16 +2,13 @@ import React, { Component } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
 
-import { modalActions } from "../../_actions";
+import { modalActions, courseActions } from "../../_actions";
 
 Modal.setAppElement("#root");
 
 class CourseModal extends Component {
   handleCourseUpdate(e) {
-    console.log(e);
-    // updateCourse(e.target.id, kurssi => {
-    //   alert("Kurssi lisätty!");
-    // });
+    this.props.dispatch(courseActions.updateCourse(e.target.id));
   }
 
   render() {

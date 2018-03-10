@@ -2,8 +2,7 @@ export * from "./PrivateRoute";
 // modals
 export * from "./modals/CourseModal";
 export * from "./modals/FilterModal";
-export * from "./FilterInput";
-export * from "./DataTable";
+export * from "./modals/TimeModal";
 // filters
 export * from "./filters/languageFilter";
 export * from "./filters/campusFilter";
