@@ -38,7 +38,7 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p start-js gulp",
     "build-js": "react-scripts build",
-    "build": "npm-run gulp-prod",
+    "build": "npm run gulp-prod",
     "gulp": "gulp",
     "gulp-prod": "gulp production",
     "gulp-dev": "gulp development",
