@@ -73,8 +73,10 @@ function timings(selectedTimings, course) {
   let list = [];
   // @TODO : Näyttää vain yhden periodin mikäli yksi valittuna
   if (JSON.stringify(selectedTimings) === JSON.stringify([1, 2, 3])) {
+    // näytetään kaikki
     list.push(course);
   } else if (JSON.stringify(selectedTimings) === JSON.stringify([1, 2])) {
+    // näytetään vain 1 ja 2
     if (
       !course.ajoitukset.includes(3) &&
       !course.ajoitukset.includes(4) &&
@@ -84,6 +86,7 @@ function timings(selectedTimings, course) {
       list.push(course);
     }
   } else if (JSON.stringify(selectedTimings) === JSON.stringify([3])) {
+    // näytetään vain intensiiviviikot
     if (
       course.ajoitukset.includes(3) ||
       course.ajoitukset.includes(4) ||
@@ -93,12 +96,24 @@ function timings(selectedTimings, course) {
       list.push(course);
     }
   } else {
+    // näytetään 1 periodi
     if (JSON.stringify(selectedTimings) === JSON.stringify([1])) {
       if (course.ajoitukset.includes(1)) {
         list.push(course);
       }
+      // näytetään vain toinen periodi
     } else if (JSON.stringify(selectedTimings) === JSON.stringify([2])) {
       if (course.ajoitukset.includes(2)) {
+        list.push(course);
+      }
+      // näytetään 1 ja 3
+    } else if (JSON.stringify(selectedTimings) === JSON.stringify([1, 3])) {
+      if (course.ajoitukset.includes(1) || course.ajoitukset.includes(3)) {
+        list.push(course);
+      }
+      // näytetään 2 ja 3
+    } else if (JSON.stringify(selectedTimings) === JSON.stringify([2, 3])) {
+      if (course.ajoitukset.includes(2) || course.ajoitukset.includes(3)) {
         list.push(course);
       }
     }
