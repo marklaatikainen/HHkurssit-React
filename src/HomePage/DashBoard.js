@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { userActions, courseActions } from "../_actions";
+import { userActions, settingsActions } from "../_actions";
 
 class DashBoard extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class DashBoard extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(courseActions.getSettings());
+    this.props.dispatch(settingsActions.getSettings());
     this.setState({
       user: userActions.getProfile().sub
     });
@@ -20,7 +20,7 @@ class DashBoard extends Component {
 
   render() {
     const { user } = this.state;
-    const { settings } = this.props.course;
+    const { settings } = this.props.settings;
     return (
       <div>
         <h5>Tervetuloa, {user}</h5>
@@ -31,14 +31,19 @@ class DashBoard extends Component {
         <i>
           <br />
           Kurssitarjonta on viimeksi päivitetty{" "}
-          {new Date(settings !== undefined ? settings.updated : null).toLocaleDateString("fi-FI", {
+          {new Date(
+            settings !== undefined ? settings.updated : null
+          ).toLocaleDateString("fi-FI", {
             timeZone: "UTC"
           })}
         </i>
         <br />
         <br />
         <i className="center">
-          Voit aloittaa selaamalla <a href="/courses">kaikkia kursseja tai suodattamalla haluamasi kurssit</a>
+          Voit aloittaa selaamalla{" "}
+          <a href="/courses">
+            kaikkia kursseja tai suodattamalla haluamasi kurssit
+          </a>
         </i>
         <br />
         <br />
@@ -52,10 +57,9 @@ class DashBoard extends Component {
 }
 
 function mapStateToProps(state) {
-  const { settings, course } = state;
+  const { settings } = state;
   return {
-    settings,
-    course
+    settings
   };
 }
 

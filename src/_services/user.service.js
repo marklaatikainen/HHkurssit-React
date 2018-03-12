@@ -5,6 +5,7 @@ export const userService = {
   login,
   logout,
   register,
+  updateProfile,
   getProfile,
   getToken,
   getUserInfo
@@ -58,17 +59,46 @@ function login(username, password) {
 
 function register(user) {
   user = {
-    username: user.userName,
+    username: user.username,
     firstName: user.firstName,
     lastName: user.lastName,
     userGroup: user.userGroup,
     passwordHash: user.password
   };
+  return axios
+    .post(apiBaseUrl + "user/register", user)
+    .then(res => {
+      if (res.status === 200) {
+        return "Käyttäjä " + user.username + " on luotu";
+      } else {
+        return Promise.reject("Virhe rekisteröinnissä!");
+      }
+    })
+    .catch(error => {
+      return Promise.reject("Rekisteröinti epäonnistui!");
+    });
+}
 
-  return axios.post(apiBaseUrl + "users/register", user).then(response => {
-    if (response.status !== 200) {
-      return Promise.reject(response.statusText);
-    }
-    return response.data;
-  });
+function updateProfile(user) {
+  user = {
+    id: user.id,
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    userGroup: user.userGroup,
+    passwordHash: user.password
+  };
+  return axios
+    .put(apiBaseUrl + "user", user)
+    .then(res => {
+      if (res.status === 200) {
+        return "Käyttäjätiedot on päivitetty!";
+      } else {
+        return Promise.reject("Virhe tallennuksessa!");
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      return Promise.reject("Virhe tallennuksessa!");
+    });
 }

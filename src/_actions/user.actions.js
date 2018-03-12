@@ -9,6 +9,7 @@ export const userActions = {
   login,
   logout,
   register,
+  updateProfile,
   loggedIn,
   getProfile,
   getUserInfo
@@ -61,7 +62,13 @@ function login(username, password) {
       },
       error => {
         dispatch(failure("Kirjautuminen epäonnistui"));
-        dispatch(snackbarActions.openSnackbar("Kirjautuminen epäonnistui", "red", "white"));
+        dispatch(
+          snackbarActions.openSnackbar(
+            "Kirjautuminen epäonnistui",
+            "red",
+            "white"
+          )
+        );
       }
     );
   };
@@ -87,10 +94,10 @@ function register(user) {
     dispatch(request(user));
 
     userService.register(user).then(
-      user => {
+      res => {
         dispatch(success());
         history.push("/login");
-        dispatch(snackbarActions.openSnackbar("Registration successful", "green", "white"));
+        dispatch(snackbarActions.openSnackbar(res, "green", "white"));
       },
       error => {
         dispatch(failure(error));
@@ -107,6 +114,33 @@ function register(user) {
   }
   function failure(error) {
     return { type: userConstants.REGISTER_FAILURE, error };
+  }
+}
+
+function updateProfile(user) {
+  return dispatch => {
+    dispatch(request(user));
+
+    userService.updateProfile(user).then(
+      res => {
+        dispatch(success());
+        dispatch(snackbarActions.openSnackbar(res, "green", "white"));
+      },
+      error => {
+        dispatch(failure(error));
+        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
+      }
+    );
+  };
+
+  function request(user) {
+    return { type: userConstants.UPDATE_REQUEST, user };
+  }
+  function success(user) {
+    return { type: userConstants.UPDATE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.UPDATE_FAILURE, error };
   }
 }
 

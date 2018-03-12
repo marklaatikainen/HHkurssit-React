@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 
 import { FilterModal } from "../_components";
-import { modalActions, courseActions } from "../_actions";
+import { modalActions, courseActions, optionActions } from "../_actions";
 import { CourseModal } from "../_components";
 
 class ShowAllPage extends Component {
@@ -16,16 +16,18 @@ class ShowAllPage extends Component {
   }
 
   async componentDidMount() {
-    this.props.dispatch(courseActions.getAllCourses());
+    const { dispatch } = this.props;
+
+    dispatch(courseActions.getAllCourses());
+    dispatch(optionActions.getList());
   }
 
   courseFilter() {
     // Declare variables
-    let filter, table, tr, td, i, counter;
+    let filter, table, tr, td, i;
     filter = document.getElementById("search");
     table = document.getElementById("CoursesTable");
     tr = table.getElementsByTagName("tr");
-    counter = 0;
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("td")[1];
@@ -34,18 +36,16 @@ class ShowAllPage extends Component {
           td.innerHTML.toUpperCase().indexOf(filter.value.toUpperCase()) > -1
         ) {
           tr[i].style.display = "";
-          counter++;
         } else {
           tr[i].style.display = "none";
         }
       }
     }
-    if (this.state.count !== counter) this.setState({ count: counter });
   }
 
   render() {
-    const { dispatch, loading } = this.props;
-    const { data } = this.props.course;
+    const { dispatch } = this.props;
+    const { data, loading } = this.props.course;
 
     return (
       <div>
@@ -79,7 +79,7 @@ class ShowAllPage extends Component {
           <div>
             {data ? (
               <table id="CoursesTable" className="table__data">
-                {this.state.count === null &&
+                {this.state.count !== data.length &&
                   this.setState({ count: data.length })}
                 <thead>
                   <tr>
@@ -131,10 +131,11 @@ class ShowAllPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { modal, course } = state;
+  const { modal, course, option } = state;
   return {
     modal,
-    course
+    course,
+    option
   };
 }
 

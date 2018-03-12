@@ -2,18 +2,6 @@ import { courseConstants } from "../_constants";
 
 export function course(state = {}, action) {
   switch (action.type) {
-    case courseConstants.SETTINGS_REQUEST:
-      return {
-        loading: true
-      };
-    case courseConstants.SETTINGS_SUCCESS:
-      return {
-        settings: action.settings
-      };
-    case courseConstants.SETTINGS_FAILURE:
-      return {
-        error: action.error
-      };
     case courseConstants.PROGRAM_LIST_REQUEST:
       return {
         loading: true
@@ -32,6 +20,7 @@ export function course(state = {}, action) {
       };
     case courseConstants.ALL_SUCCESS:
       return {
+        ...state,
         loading: false,
         data: action.data
       };
@@ -45,6 +34,7 @@ export function course(state = {}, action) {
       };
     case courseConstants.OWN_SUCCESS:
       return {
+        ...state,
         loading: false,
         data: action.data
       };
@@ -65,16 +55,27 @@ export function course(state = {}, action) {
       return {
         filter: action.text
       };
-    case courseConstants.UPDATE_COURSE_SUCCESS:
+    case courseConstants.ADD_COURSE_SUCCESS:
       return {
+        ...state,
         message: action.message
       };
-    case courseConstants.UPDATE_COURSE_FAILURE:
+    case courseConstants.ADD_COURSE_FAILURE:
+      return {
+        error: action.error
+      };
+    case courseConstants.DELETE_COURSE_SUCCESS:
+      return {
+        ...state,
+        message: action.message
+      };
+    case courseConstants.DELETE_COURSE_FAILURE:
       return {
         error: action.error
       };
     case courseConstants.RESTORE_DEFAULTS_SUCCESS:
       return {
+        ...state,
         message: action.message
       };
     case courseConstants.RESTORE_DEFAULTS_FAILURE:

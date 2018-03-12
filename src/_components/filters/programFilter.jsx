@@ -1,68 +1,65 @@
 import React, { Component } from "react";
 import { Checkbox, CheckboxGroup } from "react-checkbox-group";
-import { connect } from "react-redux";
 
-import { courseActions } from "../../_actions";
-
-class ProgramFilter extends Component {
+export class ProgramFilter extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      allPrograms: [],
-      programs: [],
-      extra: []
+      programs: [
+        "ASSI",
+        "BITE",
+        "FINA",
+        "GLOBBA",
+        "HELI",
+        "HETI",
+        "HH",
+        "HOSBA",
+        "HOTEM",
+        "HOTRA",
+        "JOURA",
+        "MATKA",
+        "MUBBA",
+        "MYYNTI",
+        "RUOKAT"
+      ]
     };
-  }
-
-  componentDidMount() {
-    this.getPrograms();
   }
 
   programsChanged = newPrograms => {
     this.setState(
       {
-        extra: newPrograms
+        programs: newPrograms
       },
       () => {
-        this.props.selectedPrograms({ selected: this.state.extra });
+        this.props.selectedPrograms({ selected: this.state.programs });
       }
     );
   };
 
-  getPrograms = async () => {
-    this.props.dispatch(courseActions.getProgramList());
-  };
-
-  componentWillReceiveProps() {
-    const { list } = this.props.course;
-    if (list) {
-      this.setState(
-        {
-          allPrograms: list,
-          programs: list,
-          extra: list
-        },
-        () => {
-          if (this.props.toPrograms.length !== 0) {
-            this.setState({
-              extra: this.props.toPrograms
-            });
-          } else {
-            this.props.selectedPrograms({ selected: this.state.extra });
-          }
-        }
-      );
-    }
-  }
-
   selectAll() {
     this.setState(
       {
-        extra: this.state.allPrograms
+        programs: [
+          "ASSI",
+          "BITE",
+          "FINA",
+          "GLOBBA",
+          "HELI",
+          "HETI",
+          "HH",
+          "HOSBA",
+          "HOTEM",
+          "HOTRA",
+          "JOURA",
+          "MATKA",
+          "MUBBA",
+          "MYYNTI",
+          "RUOKAT"
+        ]
       },
       () => {
-        this.props.selectedPrograms({ selected: this.state.extra });
+        this.props.selectedPrograms({ selected: this.state.programs });
       }
     );
   }
@@ -70,67 +67,129 @@ class ProgramFilter extends Component {
   deSelectAll() {
     this.setState(
       {
-        extra: []
+        programs: []
       },
       () => {
-        this.props.selectedPrograms({ selected: this.state.extra });
+        this.props.selectedPrograms({ selected: this.state.programs });
       }
     );
+  }
+
+  componentDidMount() {
+    if (this.props.toPrograms.length !== 0) {
+      this.setState({
+        programs: this.props.toPrograms
+      });
+    } else {
+      this.props.selectedPrograms({ selected: this.state.programs });
+    }
   }
 
   render() {
     return (
       <div>
-        {this.state.programs.length > 0 ? (
-          <div className="form-group clearfix">
-            <p className="centerwbg">Koulutusohjelmat:</p>
-            <hr />
-            <button
-              className="btn__bs filtermodal__button--select grid-2"
-              onClick={() => this.selectAll()}
-            >
-              Valitse kaikki
-            </button>
-            <button
-              className="btn__bs filtermodal__button--deselect grid-2"
-              onClick={() => this.deSelectAll()}
-            >
-              Poista valinnat
-            </button>
-            <br />
-            <br />
-            <br />
-            <CheckboxGroup
-              name="programs"
-              value={this.state.extra}
-              onChange={this.programsChanged}
-            >
-              {this.state.allPrograms.length > 0
-                ? this.state.allPrograms.map((program, i) => {
-                    return (
-                      <div key={i} className="checkbox-inline">
-                        <label className="filter-checkbox">
-                          <Checkbox value={program} /> {program}
-                        </label>
-                      </div>
-                    );
-                  })
-                : null}
-            </CheckboxGroup>
-          </div>
-        ) : null}
+        <div className="form-group clearfix">
+          <p className="centerwbg">Koulutusohjelmat:</p>
+          <hr />
+          <button
+            className="btn__bs filtermodal__button--select grid-2"
+            onClick={() => this.selectAll()}
+          >
+            Valitse kaikki
+          </button>
+          <button
+            className="btn__bs filtermodal__button--deselect grid-2"
+            onClick={() => this.deSelectAll()}
+          >
+            Poista valinnat
+          </button>
+          <br />
+          <br />
+          <br />
+          <CheckboxGroup
+            name="programs"
+            value={this.state.programs}
+            onChange={this.programsChanged}
+          >
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="ASSI" /> ASSI
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="BITE" /> BITE
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="FINA" /> FINA
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="GLOBBA" /> GLOBBA
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="HELI" /> HELI
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="HETI" /> HETI
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="HH" /> HH
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="HOSBA" /> HOSBA
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="HOTEM" /> HOTEM
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="HOTRA" /> HOTRA
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="JOURA" /> JOURA
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="MATKA" /> MATKA
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="MUBBA" /> MUBBA
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="MYYNTI" /> MYYNTI
+              </label>
+            </div>
+            <div className="checkbox-inline">
+              <label className="filter-checkbox">
+                <Checkbox value="RUOKAT" /> RUOKAT
+              </label>
+            </div>
+          </CheckboxGroup>
+        </div>
         <hr />
       </div>
     );
   }
 }
-
-function mapStateToProps(state) {
-  const { course } = state;
-  return {
-    course
-  };
-}
-
-const connectedProgramFilter = connect(mapStateToProps)(ProgramFilter);
-export { connectedProgramFilter as ProgramFilter };

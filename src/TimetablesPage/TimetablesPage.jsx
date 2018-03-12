@@ -7,7 +7,7 @@ import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 
 import { TimeModal } from "../_components";
-import { timeActions, courseActions } from "../_actions";
+import { timeActions, settingsActions } from "../_actions";
 
 class TimetablesPage extends Component {
   constructor() {
@@ -21,14 +21,14 @@ class TimetablesPage extends Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(courseActions.getSettings());
+    this.props.dispatch(settingsActions.getSettings());
   }
 
   handleChange = (event, index, period) => this.setState({ period });
 
   render() {
     const { dispatch } = this.props;
-    const { settings } = this.props.course;
+    const { settings } = this.props.settings;
 
     return (
       <div className="center">
@@ -48,12 +48,24 @@ class TimetablesPage extends Component {
               onChange={this.handleChange}
               style={{ width: 300 }}
             >
-          { settings.periodi1 && <MenuItem value={1} primaryText={settings.periodi1} /> }
-          { settings.periodi2 && <MenuItem value={2} primaryText={settings.periodi2} /> }
-          { settings.intensiiviviikko1 && <MenuItem value={3} primaryText={settings.intensiiviviikko1} /> }
-          { settings.intensiiviviikko2 && <MenuItem value={4} primaryText={settings.intensiiviviikko2} /> }
-          { settings.intensiiviviikko3 && <MenuItem value={5} primaryText={settings.intensiiviviikko3} /> }
-          { settings.intensiiviviikko4 && <MenuItem value={6} primaryText={settings.intensiiviviikko4} /> }
+              {settings.periodi1 && (
+                <MenuItem value={1} primaryText={settings.periodi1} />
+              )}
+              {settings.periodi2 && (
+                <MenuItem value={2} primaryText={settings.periodi2} />
+              )}
+              {settings.intensiiviviikko1 && (
+                <MenuItem value={3} primaryText={settings.intensiiviviikko1} />
+              )}
+              {settings.intensiiviviikko2 && (
+                <MenuItem value={4} primaryText={settings.intensiiviviikko2} />
+              )}
+              {settings.intensiiviviikko3 && (
+                <MenuItem value={5} primaryText={settings.intensiiviviikko3} />
+              )}
+              {settings.intensiiviviikko4 && (
+                <MenuItem value={6} primaryText={settings.intensiiviviikko4} />
+              )}
             </SelectField>
           )}
           <br />
@@ -121,10 +133,10 @@ class TimetablesPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { modal, course } = state;
+  const { modal, settings } = state;
   return {
     modal,
-    course
+    settings
   };
 }
 

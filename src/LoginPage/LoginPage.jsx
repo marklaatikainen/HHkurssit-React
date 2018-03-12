@@ -6,7 +6,7 @@ import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
 import { history } from "../_helpers";
-import { alertActions, snackbarActions } from "../_actions";
+import { snackbarActions } from "../_actions";
 import { userActions } from "../_actions";
 
 class LoginPage extends React.Component {
@@ -23,10 +23,6 @@ class LoginPage extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(userActions.logout());
-    history.listen((location, action) => {
-      // clear alert on location change
-      dispatch(alertActions.clear());
-    });
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }

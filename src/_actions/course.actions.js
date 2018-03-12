@@ -4,54 +4,13 @@ import { courseService } from "../_services";
 import { snackbarActions } from "../_actions";
 
 export const courseActions = {
-  getSettings,
-  getProgramList,
   getAllCourses,
   setDataToTable,
   getOwnCourses,
-  updateCourse,
+  addCourse,
+  deleteCourse,
   restoreDefaults
 };
-
-function getSettings() {
-  return dispatch => {
-    dispatch(request());
-
-    courseService
-      .getSettings()
-      .then(sett => dispatch(success(sett)), error => dispatch(failure(error)));
-  };
-
-  function request() {
-    return { type: courseConstants.SETTINGS_REQUEST };
-  }
-  function success(settings) {
-    return { type: courseConstants.SETTINGS_SUCCESS, settings };
-  }
-  function failure(error) {
-    return { type: courseConstants.SETTINGS_FAILURE, error };
-  }
-}
-
-function getProgramList() {
-  return dispatch => {
-    dispatch(request());
-
-    courseService
-      .getProgramList()
-      .then(list => dispatch(success(list)), error => dispatch(failure(error)));
-  };
-
-  function request() {
-    return { type: courseConstants.PROGRAM_LIST_REQUEST };
-  }
-  function success(list) {
-    return { type: courseConstants.PROGRAM_LIST_SUCCESS, list };
-  }
-  function failure(error) {
-    return { type: courseConstants.PROGRAM_LIST_FAILURE, error };
-  }
-}
 
 function getAllCourses() {
   return dispatch => {
@@ -83,23 +42,39 @@ function setDataToTable() {
   }
 }
 
-function updateCourse(course) {
+function addCourse(course) {
   return dispatch => {
-    courseService.updateCourse(course).then(
+    courseService.addCourse(course).then(
       data => {
-        dispatch(getOwnCourses(data));
+        dispatch(getOwnCourses());
         dispatch(snackbarActions.openSnackbar(data, "green", "white"));
       },
       error => {
         dispatch(failure(error));
+        dispatch(getOwnCourses());
         dispatch(snackbarActions.openSnackbar(error, "red", "white"));
       }
     );
   };
 
   function failure(error) {
-    return { type: courseConstants.UPDATE_COURSE_FAILURE, error };
+    return { type: courseConstants.ADD_COURSE_FAILURE, error };
   }
+}
+
+function deleteCourse(course) {
+  return dispatch => {
+    courseService.deleteCourse(course).then(
+      data => {
+        dispatch(getOwnCourses());
+        dispatch(snackbarActions.openSnackbar(data, "green", "white"));
+      },
+      error => {
+        // dispatch(getOwnCourses());
+        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
+      }
+    );
+  };
 }
 
 function getOwnCourses() {
@@ -124,15 +99,15 @@ function getOwnCourses() {
 
 function restoreDefaults() {
   return dispatch => {
-    courseService
-      .restoreDefaults()
-      .then(data => dispatch(success(data)), error => dispatch(failure(error)));
+    courseService.restoreDefaults().then(
+      data => {
+        dispatch(getOwnCourses());
+        dispatch(snackbarActions.openSnackbar(data, "green", "white"));
+      },
+      error => {
+        // dispatch(getOwnCourses());
+        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
+      }
+    );
   };
-
-  function success(message) {
-    return { type: courseConstants.RESTORE_DEFAULTS_SUCCESS, message };
-  }
-  function failure(error) {
-    return { type: courseConstants.RESTORE_DEFAULTS_FAILURE, error };
-  }
 }

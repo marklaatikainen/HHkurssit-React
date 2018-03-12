@@ -9,7 +9,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Snackbar from "material-ui/Snackbar";
 // redux
 import { history } from "../_helpers";
-import { alertActions, userActions, snackbarActions } from "../_actions";
+import { userActions, snackbarActions } from "../_actions";
 import { PrivateRoute } from "../_components";
 // pages
 import { HomePage } from "../HomePage";
@@ -27,12 +27,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleLinkClick = this.handleLinkClick.bind(this);
-
-    const { dispatch } = this.props;
-    history.listen((location, action) => {
-      // clear alert on location change
-      dispatch(alertActions.clear());
-    });
   }
   // close dropdown menu
   handleLinkClick() {
@@ -172,9 +166,8 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { alert, snackbar } = state;
+  const { snackbar } = state;
   return {
-    alert,
     snackbar
   };
 }

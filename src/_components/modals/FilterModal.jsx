@@ -35,7 +35,7 @@ class FilterModal extends Component {
     return (
       <Modal
         isOpen={filter_open}
-        onRequestClose={() => dispatch(modalActions.closeFilterModal())}
+        onRequestClose={() => dispatch(modalActions.cancelFilterModal())}
         contentLabel="Kurssifiltteri"
         className="modal FilterModal"
         overlayClassName="modal--overlay"

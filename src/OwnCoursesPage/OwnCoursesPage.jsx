@@ -22,7 +22,7 @@ class OwnCoursesPage extends Component {
               <table id="CoursesTable" className="table table-sm col-md-12">
                 <thead>
                   <tr>
-                    <th>Kurssitunnus</th>
+                    <th className="nowrap">Kurssitunnus</th>
                     <th>Kurssinimi:</th>
                     <th>Poista</th>
                   </tr>
@@ -30,7 +30,7 @@ class OwnCoursesPage extends Component {
                 <tbody>
                   {data.map((kurssi, i) => (
                     <tr key={i}>
-                      <td>
+                      <td className="nowrap">
                         <a
                           href="#moreinfo"
                           onClick={() =>
@@ -47,7 +47,7 @@ class OwnCoursesPage extends Component {
                           id={kurssi.opintotunnus}
                           onClick={event =>
                             dispatch(
-                              courseActions.updateCourse(event.target.id)
+                              courseActions.deleteCourse(event.target.id)
                             )
                           }
                         >

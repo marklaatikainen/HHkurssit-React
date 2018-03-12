@@ -7,10 +7,6 @@ import { modalActions, courseActions } from "../../_actions";
 Modal.setAppElement("#root");
 
 class CourseModal extends Component {
-  handleCourseUpdate(e) {
-    this.props.dispatch(courseActions.updateCourse(e.target.id));
-  }
-
   render() {
     const { course_open, course } = this.props.modal;
     const { dispatch } = this.props;
@@ -108,7 +104,7 @@ class CourseModal extends Component {
             <div className="modal-footer">
               <button
                 id={course.opintotunnus}
-                onClick={event => this.handleCourseUpdate(event)}
+                onClick={e => dispatch(courseActions.addCourse(e.target.id))}
                 className="btn__bs btn__modal--add grid-2"
               >
                 Lisää omiin

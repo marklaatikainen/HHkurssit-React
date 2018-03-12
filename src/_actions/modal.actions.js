@@ -1,10 +1,12 @@
 import { modalConstants, courseConstants } from "../_constants";
 import { modalService } from "../_services";
+import { courseActions } from ".";
 
 export const modalActions = {
   openCourseModal,
   closeCourseModal,
   openFilterModal,
+  cancelFilterModal,
   closeFilterModal,
   openTimeModal,
   closeTimeModal
@@ -43,11 +45,29 @@ function openFilterModal() {
   }
 }
 
+function cancelFilterModal() {
+  return dispatch => {
+    dispatch(request());
+    dispatch(loading());
+    document.body.classList.remove("no-overflow");
+
+    dispatch(courseActions.getAllCourses);
+  };
+
+  function request() {
+    return { type: modalConstants.HIDE_FILTER_MODAL };
+  }
+  function loading() {
+    return { type: courseConstants.ALL_REQUEST };
+  }
+}
+
 function closeFilterModal(state) {
   return dispatch => {
     dispatch(request());
-
+    dispatch(loading());
     document.body.classList.remove("no-overflow");
+
     modalService
       .filterData(state)
       .then(data => dispatch(success(data)), error => dispatch(failure(error)));
@@ -55,6 +75,9 @@ function closeFilterModal(state) {
 
   function request() {
     return { type: modalConstants.HIDE_FILTER_MODAL };
+  }
+  function loading() {
+    return { type: courseConstants.ALL_REQUEST };
   }
   function success(data) {
     return { type: courseConstants.SHOW_FILTERED, data };

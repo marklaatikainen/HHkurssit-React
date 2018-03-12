@@ -4,11 +4,12 @@ import { authentication } from "./authentication.reducer";
 import { registration } from "./registration.reducer";
 import { users } from "./users.reducer";
 import { course } from "./course.reducer";
-import { alert } from "./alert.reducer";
+import { settings } from "./settings.reducer";
 import { modal } from "./modal.reducer";
 import { filter } from "./filter.reducer";
 import { snackbar } from "./snackbar.reducer";
 import { time } from "./time.reducer";
+import { option } from "./option.reducer";
 
 const rootReducer = combineReducers({
   authentication,
@@ -17,9 +18,10 @@ const rootReducer = combineReducers({
   course,
   filter,
   modal,
-  alert,
+  settings,
   snackbar,
-  time
+  time,
+  option
 });
 
 export default rootReducer;

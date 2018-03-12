@@ -18,7 +18,8 @@ export function modal(state = {}, action) {
       };
     case modalConstants.HIDE_FILTER_MODAL:
       return {
-        filter_open: false
+        filter_open: false,
+        loading: true
       };
     case modalConstants.FILTER_SUCCESS:
       return {

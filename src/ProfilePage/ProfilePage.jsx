@@ -4,15 +4,16 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 
-import { userActions } from "../_actions";
+import { userActions, snackbarActions } from "../_actions";
 
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      id: "",
       username: "",
-      fistName: "",
+      firstName: "",
       lastName: "",
       userGroup: "",
       password: "",
@@ -28,8 +29,45 @@ class ProfilePage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
-    // @TODO: submit update
+    const { dispatch } = this.props;
+    const {
+      id,
+      username,
+      firstName,
+      lastName,
+      userGroup,
+      password,
+      password2
+    } = this.state;
+    if (password === password2) {
+      if (
+        id !== "" &&
+        username !== "" &&
+        firstName !== "" &&
+        lastName !== "" &&
+        userGroup !== "" &&
+        password !== "" &&
+        password2 !== ""
+      ) {
+        dispatch(userActions.updateProfile(this.state));
+      } else {
+        dispatch(
+          snackbarActions.openSnackbar(
+            "Täytä kaikki kentät!",
+            "yellow",
+            "black"
+          )
+        );
+      }
+    } else {
+      dispatch(
+        snackbarActions.openSnackbar(
+          "Salasanat eivät täsmää!",
+          "yellow",
+          "black"
+        )
+      );
+    }
   }
 
   render() {
@@ -39,6 +77,8 @@ class ProfilePage extends Component {
         {user && (
           <MuiThemeProvider>
             <form name="form" onSubmit={this.handleSubmit}>
+            {this.state.id === "" &&
+                this.setState({ id: user.id })}
               <TextField
                 defaultValue={user.username}
                 hintText="Syötä käyttäjätunnuksesi"
@@ -47,6 +87,8 @@ class ProfilePage extends Component {
                   this.setState({ username: newValue })
                 }
               />
+              {this.state.username === "" &&
+                this.setState({ username: user.username })}
               <br />
               <TextField
                 defaultValue={user.firstName}
@@ -56,6 +98,8 @@ class ProfilePage extends Component {
                   this.setState({ firstName: newValue })
                 }
               />
+              {this.state.firstName === "" &&
+                this.setState({ firstName: user.firstName })}
               <br />
               <TextField
                 defaultValue={user.lastName}
@@ -65,6 +109,8 @@ class ProfilePage extends Component {
                   this.setState({ lastName: newValue })
                 }
               />
+              {this.state.lastName === "" &&
+                this.setState({ lastName: user.lastName })}
               <br />
               <TextField
                 defaultValue={user.userGroup}
@@ -74,6 +120,8 @@ class ProfilePage extends Component {
                   this.setState({ userGroup: newValue })
                 }
               />
+              {this.state.userGroup === "" &&
+                this.setState({ userGroup: user.userGroup })}
               <br />
               <TextField
                 type="password"
