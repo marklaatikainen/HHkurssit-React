@@ -11,9 +11,17 @@ class HomePage extends React.Component {
         {userActions.loggedIn() ? (
           <DashBoard />
         ) : (
-          <p>
-            Haaga-Helian lukujärjestykset - <a href="/login">Kirjaudu sisään</a>
-          </p>
+          <div className="center">
+            <p>
+              Haaga-Helian lukujärjestykset.<br /><br /> Sovelluksella löydät helposti
+              oikeat kurssit tarjonnasta, sekä kurssien oleellisimmat tiedot.
+              Kursseja voit lisätä omiin ja nähdä oman lukujärjestyksen.
+            </p>
+            <p>Sovellus on suunniteltu etupäässä mobiililaitteille.</p>
+            <p>
+              Aloita <a href="/login">kirjautumalla sisään</a>.
+            </p>
+          </div>
         )}
       </div>
     );
