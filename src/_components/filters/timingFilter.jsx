@@ -6,7 +6,8 @@ class TimingFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timings: [1, 2, 3]
+      // timings: [1, 2, 3]
+      timings: []
     };
   }
 

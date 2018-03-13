@@ -6,7 +6,8 @@ export class MethodFilter extends Component {
     super();
 
     this.state = {
-      methods: ["lahi", "eta", "int", "mmt", "nstop", "vir", "viros"]
+      // methods: ["lahi", "eta", "int", "mmt", "nstop", "vir", "viros"]
+      methods: []
     };
   }
 

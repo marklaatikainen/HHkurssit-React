@@ -22,11 +22,11 @@ class DashBoard extends Component {
     const { user } = this.state;
     const { settings } = this.props.settings;
     return (
-      <div>
+      <div className="center">
         <h5>Tervetuloa, {user}</h5>
         <br />
         <i className="center">
-          Ohjelmassa {settings !== undefined ? settings.nimi : null}
+          Sovelluksesta löytyy tällä hetkellä lukujärjestys: {settings !== undefined ? settings.nimi : null}
         </i>
         <i>
           <br />
@@ -40,9 +40,9 @@ class DashBoard extends Component {
         <br />
         <br />
         <i className="center">
-          Voit aloittaa selaamalla{" "}
+          Voit aloittaa etsimällä suodattimien avulla{" "}
           <a href="/courses">
-            kaikkia kursseja tai suodattamalla haluamasi kurssit
+             haluamasi kurssit
           </a>
         </i>
         <br />
@@ -51,6 +51,18 @@ class DashBoard extends Component {
           Voit katsoa myös kurssien ja ryhmien{" "}
           <a href="/timetables">aikatauluja</a>, sekä omaa lukujärjestystä.
         </i>
+        <br />
+        <br />
+        <i className="center">
+          Omat kurssit löytyvät {" "}
+          <a href="/own">täältä</a>.
+        </i>        
+        <br />
+        <br />
+        <i className="center">
+          Voi muokata myös {" "}
+          <a href="/profile">omia tietojasi</a>.
+        </i>        
       </div>
     );
   }

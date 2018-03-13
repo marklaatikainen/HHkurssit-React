@@ -5,7 +5,8 @@ export class LanguageFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      languages: ["fin", "eng", "swe"]
+      // languages: ["fin", "eng", "swe"]
+      languages: []
     };
   }
 

@@ -1,85 +1,163 @@
 #calendar {
-	top: 60px;
-	margin-left: auto;
-	margin-right: auto;
-	width: 850px;
-	padding: 0;
-	box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+    top: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px;
+    padding: 0;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
 }
 
-.cell, .day, .time {
-	text-align: center;
-    width: 132px;
-    height: 34px;
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    float: left;
-    box-sizing: border-box;
+.cell,
+.day,
+.time {
+    // @include breakpoint("md") {
+        text-align: center;
+        width: 132px;
+        height: 34px;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        float: left;
+        box-sizing: border-box;
+    // }
 }
 
 .column {
-    width: calc(100% / 5);
-    display: inline-block;
+//     @include breakpoint("md") {
+        width: calc(100% / 5);
+        display: inline-block;
+//     }
 }
 
 .column--time {
-    width: calc(100% / 6);
+//     @include breakpoint("md") {
+        width: calc(100% / 6);
+//     }
 }
 
-.cell, .time {
-	width: 100%;
-	padding: .5em 1em;
-	border-right: 1px solid #B3BFAA;
-	border-bottom: 1px solid #B3BFAA;
+.cell,
+.time {
+    // @include breakpoint("xs") {
+    //     display: none;
+    // }
+    // @include breakpoint("md") {
+        width: 100%;
+        padding: 0.5em 1em;
+        border-right: 1px solid #b3bfaa;
+        border-bottom: 1px solid #b3bfaa;
+    // }
 }
 
-.day { 
-	width: calc(100% / 6);
-	background: #D5E0CC;
-	padding-top: 6px;
-	border-right: 1px solid #B3BFAA;
-	border-bottom: 1px solid #B3BFAA;
+.day {
+    // @include breakpoint("xs") {
+    //     display: none;
+    // }
+    // @include breakpoint("md") {
+        width: calc(100% / 6);
+        background: #d5e0cc;
+        padding-top: 6px;
+        border-right: 1px solid #b3bfaa;
+        border-bottom: 1px solid #b3bfaa;
+    // }
 }
 
 .canvas {
-	position: relative;
-	display: inline-block;
-    width: calc(100% - (100% / 6));
+//    @include breakpoint("md") {
+        position: relative;
+        display: inline-block;
+        width: calc(100% - (100% / 6));
+    // }
 }
 
 .event {
-	position: absolute;
-	text-align: center;
-	font-size: 10px;
-	// width: 115px;
-	width: calc((100% / 5) - 3.5px);
-	margin: 0;
-	display: inline-block;
-	background-color: rgba(10, 100, 100, 0.9);	
-	z-index: 2;
-	left: attr(data-day);
-	top: attr(data-start);
-	height: attr(data-dur);
-	color:#fff;
-	border: 1px solid #C1DAD7;
+        text-align: center;
+        position: absolute;
+        display: inline-block;
+        font-size: 10px;
+        width: calc((100% / 5) - 3.5px);
+        margin: 0;
+        background-color: rgba(92, 150, 90, .9);
+        z-index: 2;
+        top: attr(data-start);
+        height: attr(data-dur);
+        color: #fff;
+        border: 1px solid #c1dad7;
+        border-radius: 2px;
+        box-shadow: 0 -1px 2px -1px rgba(202, 250, 200, .8), 0 1px 2px -1px rgba(202, 250, 200, .8);
+}
+
+.day-mon {
+    // @include breakpoint("md") {
+        left: 0;
+    // }
+    // @include breakpoint("xs") {
+    //     &:first-of-type::before {
+    //         content: "Maanantai";
+    //         font-size: 14px;
+    //         color: black;
+    //     }
+    // }
+}
+
+.day-tue {
+    // @include breakpoint("md") {
+        left: 20%;
+    // }
+    // @include breakpoint("xs") {
+    //     &:first-of-type::before {
+    //         content: "Tiistai";
+    //     }
+    // }
+}
+
+.day-wed {
+    // @include breakpoint("md") {
+        left: 40%;
+    // }
+    // @include breakpoint("xs") {
+    //     &:first-of-type::before {
+    //         content: "Keskiviikko";
+    //     }
+    // }
+}
+
+.day-thu {
+    // @include breakpoint("md") {
+        left: 60%;
+    // }
+    // @include breakpoint("xs") {
+    //     &:first-of-type::before {
+    //         content: "Torstai";
+    //     }
+    // }
+}
+
+.day-fri {
+    // @include breakpoint("md") {
+        left: 80%;
+    // }
+    // @include breakpoint("xs") {
+    //     &:first-of-type::before {
+    //         content: "Perjantai";
+    //     }
+    // }
 }
 
 .strDiv {
-	position: absolute;
-	top: 40px;
-	left: 5%;
-	text-align: center;
-	vertical-align: middle;
-	padding-bottom: 40px;
-	font-size: 12px;
-	width: 90%;
-	margin: 0;
-	display: inline-block;
-	background-color: rgba(10, 100, 100, 0.9);	
-	z-index: 2;
-	color: #fff;
-	border: 1px solid #C1DAD7;
+    position: absolute;
+    top: 40px;
+    left: 5%;
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 40px;
+    font-size: 12px;
+    width: 90%;
+    margin: 0;
+    display: inline-block;
+    background-color: rgba(10, 100, 100, 0.9);
+    z-index: 2;
+    color: #fff;
+    border: 1px solid #c1dad7;
 }
 
 .clearfix:after {

@@ -6,23 +6,24 @@ export class ProgramFilter extends Component {
     super(props);
 
     this.state = {
-      programs: [
-        "ASSI",
-        "BITE",
-        "FINA",
-        "GLOBBA",
-        "HELI",
-        "HETI",
-        "HH",
-        "HOSBA",
-        "HOTEM",
-        "HOTRA",
-        "JOURA",
-        "MATKA",
-        "MUBBA",
-        "MYYNTI",
-        "RUOKAT"
-      ]
+      // programs: [
+      //   "ASSI",
+      //   "BITE",
+      //   "FINA",
+      //   "GLOBBA",
+      //   "HELI",
+      //   "HETI",
+      //   "HH",
+      //   "HOSBA",
+      //   "HOTEM",
+      //   "HOTRA",
+      //   "JOURA",
+      //   "MATKA",
+      //   "MUBBA",
+      //   "MYYNTI",
+      //   "RUOKAT"
+      // ],
+      programs: []
     };
   }
 

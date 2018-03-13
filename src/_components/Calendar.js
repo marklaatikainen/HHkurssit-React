@@ -121,7 +121,10 @@ function createEvents(data) {
         // get starting position
         ev.style.top = getPosition(data[d].time[s].substring(4, 9)) + "px";
         // get horizontal position of day
-        ev.style.left = getDay(data[d].time[s].substring(0, 3)) + "%";
+        // ev.style.left = getDay(data[d].time[s].substring(0, 3)) + "%";
+        ev.classList.add(
+          "day-" + data[d].time[s].substring(0, 3).toLowerCase()
+        );
         // get event height
         ev.style.height =
           getDuration(
@@ -156,23 +159,6 @@ function getPosition(startTime) {
   // calculate event's vertical starting position
   let startPosition = begin + difference * addMinutes;
   return startPosition;
-}
-
-function getDay(day) {
-  // get event horizontal starting position in % for each day
-  if (day === "Mon") {
-    return 0;
-  } else if (day === "Tue") {
-    return 20;
-  } else if (day === "Wed") {
-    return 40;
-  } else if (day === "Thu") {
-    return 60;
-  } else if (day === "Fri") {
-    return 80;
-  } else {
-    return;
-  }
 }
 
 function getDuration(startTime, endTime) {

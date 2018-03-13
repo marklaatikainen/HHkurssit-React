@@ -40,7 +40,8 @@ class FilterModal extends Component {
         className="modal FilterModal"
         overlayClassName="modal--overlay"
       >
-        <h6>Suodatushaku</h6>
+        <br />
+        <h4>Valitse näytettävät kurssit</h4>
         <br />
         <LanguageFilter
           toLanguages={this.state.selectedLanguages}

@@ -16,7 +16,11 @@ async function getCourseTime(course, period) {
         headers: { Authorization: userService.getToken() }
       })
       .then(res => {
-        resolve(res.data);
+        if (res.data === "Request not authorized") {
+          reject(Error(res.data))
+        } else {
+          resolve(res.data);
+        }
       })
       .catch(function(error) {
         reject(Error(error));
@@ -31,8 +35,11 @@ async function getGroupTime(group, period) {
         headers: { Authorization: userService.getToken() }
       })
       .then(res => {
-        console.log(res)
-        resolve(res.data);
+        if (res.data === "Request not authorized") {
+          reject(Error(res.data))
+        } else {
+          resolve(res.data);
+        }
       })
       .catch(function(error) {
         reject(Error(error));
@@ -48,7 +55,11 @@ async function getOwnTime(period) {
         headers: { Authorization: userService.getToken() }
       })
       .then(res => {
-        resolve(res.data);
+        if (res.data === "Request not authorized") {
+          reject(Error(res.data))
+        } else {
+          resolve(res.data);
+        }
       })
       .catch(function(error) {
         reject(Error(error));

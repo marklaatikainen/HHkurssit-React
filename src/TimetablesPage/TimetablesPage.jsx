@@ -35,18 +35,16 @@ class TimetablesPage extends Component {
         <h5>Aikataulut</h5>
         <br />
         <br />
-        <br />
-        <br />
         <b>Valitse näytettävä periodi</b>
+        <br />
         <br />
         <MuiThemeProvider>
           {settings && (
             <SelectField
               id="selectPeriod"
-              floatingLabelText="Periodi"
               value={this.state.period}
               onChange={this.handleChange}
-              style={{ width: 300 }}
+              style={{ width: 230 }}
             >
               {settings.periodi1 && (
                 <MenuItem value={1} primaryText={settings.periodi1} />

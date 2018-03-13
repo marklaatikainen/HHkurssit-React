@@ -18,8 +18,9 @@ function getOwnTime(period) {
         dispatch(modalActions.openTimeModal(time));
       },
       error => {
-        dispatch(failure(error));
-        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
+        console.log(error.message)
+        dispatch(failure(error.message));
+        dispatch(snackbarActions.openSnackbar(error.message, "red", "white"));
       }
     );
   };

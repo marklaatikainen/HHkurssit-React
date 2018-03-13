@@ -6,7 +6,8 @@ export class CampusFilter extends Component {
     super(props);
     
     this.state = {
-      campuses: ["pasila", "malmi", "haaga"]
+      // campuses: ["pasila", "malmi", "haaga"],
+      campuses: []
     };
   }
 

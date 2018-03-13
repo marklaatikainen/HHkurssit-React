@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 
 import { FilterModal } from "../_components";
-import { modalActions, courseActions, optionActions } from "../_actions";
+import { modalActions, optionActions } from "../_actions";
 import { CourseModal } from "../_components";
 
 class ShowAllPage extends Component {
@@ -18,8 +18,8 @@ class ShowAllPage extends Component {
   async componentDidMount() {
     const { dispatch } = this.props;
 
-    dispatch(courseActions.getAllCourses());
     dispatch(optionActions.getList());
+    dispatch(modalActions.openFilterModal());
   }
 
   courseFilter() {

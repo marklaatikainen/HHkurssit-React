@@ -16,9 +16,13 @@ function getAllCourses() {
   return dispatch => {
     dispatch(request());
 
-    courseService
-      .getAllCourses()
-      .then(data => dispatch(success(data)), error => dispatch(failure(error)));
+    courseService.getAllCourses().then(
+      data => dispatch(success(data)),
+      error => {
+        dispatch(failure(error));
+        dispatch(snackbarActions.openSnackbar(error.message, "red", "white"));
+      }
+    );
   };
 
   function request() {

@@ -13,7 +13,7 @@ function getList() {
     optionService.getList().then(
       list => dispatch(success(list)),
       error => {
-        dispatch(snackbarActions.openSnackbar(error, "red", "white"));
+        dispatch(snackbarActions.openSnackbar(error.message, "red", "white"));
         dispatch(failure(error));
       }
     );

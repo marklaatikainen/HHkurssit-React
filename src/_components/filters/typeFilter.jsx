@@ -6,7 +6,8 @@ export class TypeFilter extends Component {
     super();
 
     this.state = {
-      types: ["ilta", "paiva"]
+      // types: ["ilta", "paiva"]
+      types: []
     };
   }
 
