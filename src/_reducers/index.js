@@ -10,6 +10,7 @@ import { filter } from "./filter.reducer";
 import { snackbar } from "./snackbar.reducer";
 import { time } from "./time.reducer";
 import { option } from "./option.reducer";
+import { own } from "./own.reducer";
 
 const rootReducer = combineReducers({
   authentication,
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   settings,
   snackbar,
   time,
-  option
+  option,
+  own
 });
 
 export default rootReducer;

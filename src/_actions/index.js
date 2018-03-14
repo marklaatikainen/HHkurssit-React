@@ -6,3 +6,4 @@ export * from "./filter.actions";
 export * from "./snackbar.actions";
 export * from "./time.actions";
 export * from "./option.action";
+export * from "./own.actions";

@@ -146,8 +146,8 @@ class RegisterPage extends React.Component {
                   <RaisedButton
                     label="Peruuta"
                     type="submit"
-                    primary={false}
-                    style={cancelButtonStyle}
+                    secondary={true}
+                    style={buttonStyle}
                   />
                 </form>
               </div>
@@ -164,13 +164,9 @@ class RegisterPage extends React.Component {
 }
 
 const buttonStyle = {
-  marginTop: 20
-};
-
-const cancelButtonStyle = {
-  width: "100%",
-  marginTop: 50,
-  marginBottom: 20
+  marginTop: 20,
+  marginRight: 12,
+  marginBottom: 25,
 };
 
 function mapStateToProps(state) {

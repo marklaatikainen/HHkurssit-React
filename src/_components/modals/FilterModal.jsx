@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RaisedButton from "material-ui/RaisedButton";
 
 import { modalActions } from "../../_actions";
 // Filters
@@ -79,18 +81,31 @@ class FilterModal extends Component {
         />
         <br />
         <div className="modal-footer">
-          <button
-            className="btn__bs filtermodal__button--filter"
-            onClick={() => dispatch(modalActions.closeFilterModal(this.state))}
-          >
-            Hae
-          </button>
+          <MuiThemeProvider>
+            <RaisedButton
+              label="Näytä kurssit"
+              onClick={() =>
+                dispatch(modalActions.closeFilterModal(this.state))
+              }
+              type="submit"
+              primary={true}
+              buttonStyle={{ backgroundColor: "#A4C639" }}
+              style={buttonStyle}
+            />
+          </MuiThemeProvider>
         </div>
         <br />
       </Modal>
     );
   }
 }
+
+const buttonStyle = {
+  marginLeft: "5%",
+  marginTop: 20,
+  marginBottom: 25,
+  width: "90%"
+};
 
 function mapStateToProps(state) {
   const { modal } = state;

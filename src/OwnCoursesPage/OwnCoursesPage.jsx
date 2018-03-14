@@ -3,15 +3,15 @@ import { connect } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 import { CourseModal } from "../_components";
 
-import { courseActions, modalActions } from "../_actions";
+import { ownActions, modalActions } from "../_actions";
 
 class OwnCoursesPage extends Component {
   componentDidMount() {
-    this.props.dispatch(courseActions.getOwnCourses());
+    this.props.dispatch(ownActions.getOwnCourses());
   }
 
   render() {
-    const { data, loading } = this.props.course;
+    const { data, loading } = this.props.own;
     const { dispatch } = this.props;
     return (
       <div>
@@ -47,7 +47,7 @@ class OwnCoursesPage extends Component {
                           id={kurssi.opintotunnus}
                           onClick={event =>
                             dispatch(
-                              courseActions.deleteCourse(event.target.id)
+                              ownActions.deleteCourse(event.target.id)
                             )
                           }
                         >
@@ -62,7 +62,7 @@ class OwnCoursesPage extends Component {
             <div className="content-footer">
               <button
                 className="btn__restore"
-                onClick={() => dispatch(courseActions.restoreDefaults())}
+                onClick={() => dispatch(ownActions.restoreDefaults())}
               >
                 Palauta alkuperäiset
               </button>
@@ -80,9 +80,9 @@ class OwnCoursesPage extends Component {
 }
 
 function mapStateToProps(state) {
-  const { course } = state;
+  const { own } = state;
   return {
-    course
+    own
   };
 }
 

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RaisedButton from "material-ui/RaisedButton";
 
-import { modalActions, courseActions } from "../../_actions";
+import { modalActions, ownActions } from "../../_actions";
 
 Modal.setAppElement("#root");
 
@@ -65,7 +67,6 @@ class CourseModal extends Component {
                     <th>Opetuskieli:</th>
                     <td className="table-control">{course.opetuskieli}</td>
                   </tr>
-
                   <tr>
                     <th>Opintopisteet:</th>
                     <td className="table-control">{course.opintopisteet}</td>
@@ -102,19 +103,24 @@ class CourseModal extends Component {
               </table>
             </div>
             <div className="modal-footer">
-              <button
-                id={course.opintotunnus}
-                onClick={e => dispatch(courseActions.addCourse(e.target.id))}
-                className="btn__bs btn__modal--add grid-2"
-              >
-                Lisää omiin
-              </button>
-              <button
-                className="btn__bs btn__modal--close grid-2"
-                onClick={() => dispatch(modalActions.closeCourseModal())}
-              >
-                Takaisin listaan
-              </button>
+              <MuiThemeProvider>
+                <RaisedButton
+                  label="Lisää omiin"
+                  id={course.opintotunnus}
+                  onClick={e => dispatch(ownActions.addCourse(e.target.id))}
+                  type="submit"
+                  primary={true}
+                  buttonStyle={{ backgroundColor: "#A4C639" }}
+                  style={buttonStyle}
+                />
+                <RaisedButton
+                  label="Takaisin listaan"
+                  onClick={() => dispatch(modalActions.closeCourseModal())}
+                  type="submit"
+                  primary={true}
+                  style={buttonStyle}
+                />
+              </MuiThemeProvider>
             </div>
           </div>
         )}
@@ -122,6 +128,13 @@ class CourseModal extends Component {
     );
   }
 }
+
+const buttonStyle = {
+  marginLeft: 10,
+  marginTop: 20,
+  marginBottom: 25,
+  width: "45%"
+};
 
 function mapStateToProps(state) {
   const { modal } = state;

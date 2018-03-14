@@ -4,3 +4,4 @@ export * from "./modal.service";
 export * from "./time.service";
 export * from "./option.service";
 export * from "./settings.service";
+export * from "./own.service";

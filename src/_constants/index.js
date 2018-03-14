@@ -6,3 +6,4 @@ export * from "./filter.constants";
 export * from "./snackbar.constants";
 export * from "./time.constants";
 export * from "./option.constants";
+export * from "./own.constants";

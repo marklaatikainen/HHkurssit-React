@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Checkbox, CheckboxGroup } from "react-checkbox-group";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RaisedButton from "material-ui/RaisedButton";
 
 export class TypeFilter extends Component {
   constructor() {
@@ -59,21 +61,20 @@ export class TypeFilter extends Component {
       <div>
         <div className="form-group clearfix">
           <p className="centerwbg">Tyypit:</p>
-          <hr />
-          <button
-            className="btn__bs filtermodal__button--select grid-2"
-            onClick={() => this.selectAll()}
-          >
-            Valitse kaikki
-          </button>
-          <button
-            className="btn__bs filtermodal__button--deselect grid-2"
-            onClick={() => this.deSelectAll()}
-          >
-            Poista valinnat
-          </button>
-          <br />
-          <br />
+          <MuiThemeProvider>
+            <RaisedButton
+              label="Valitse kaikki"
+              onClick={() => this.selectAll()}
+              type="submit"
+              style={buttonStyle}
+            />
+            <RaisedButton
+              label="Poista valinnat"
+              onClick={() => this.deSelectAll()}
+              type="submit"
+              style={buttonStyle}
+            />
+          </MuiThemeProvider>
           <br />
           <CheckboxGroup
             name="types"
@@ -102,3 +103,9 @@ export class TypeFilter extends Component {
     );
   }
 }
+
+const buttonStyle = {
+  marginTop: 10,
+  marginLeft: "6%",
+  marginBottom: 25
+};

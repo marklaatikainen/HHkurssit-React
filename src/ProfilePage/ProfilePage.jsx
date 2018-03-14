@@ -142,7 +142,7 @@ class ProfilePage extends Component {
               />
               <br />
               <RaisedButton
-                label="Tallenna muutokset"
+                label="Tallenna"
                 type="submit"
                 primary={true}
                 style={buttonStyle}
@@ -161,7 +161,9 @@ class ProfilePage extends Component {
   }
 }
 const buttonStyle = {
-  marginTop: 20
+  marginTop: 20,
+  marginRight: 12,
+  marginBottom: 25,
 };
 
 function mapStateToProps(state) {
