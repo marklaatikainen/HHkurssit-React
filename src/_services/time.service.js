@@ -1,13 +1,12 @@
 import axios from "axios";
 import { userService } from "../_services";
+import { apiBaseUrl } from "../_helpers";
 
 export const timeService = {
   getCourseTime,
   getOwnTime,
   getGroupTime
 };
-
-const apiBaseUrl = "https://hhkurssit.markl.fi/";
 
 async function getCourseTime(course, period) {
   return new Promise(function(resolve, reject) {

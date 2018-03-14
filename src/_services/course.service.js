@@ -1,17 +1,14 @@
 import axios from "axios";
-import { userService } from "../_services";
+
+import { apiBaseUrl, authHeader } from "../_helpers";
 
 export const courseService = {
   getAllCourses
 };
 
-const apiBaseUrl = "https://hhkurssit.markl.fi/";
-
 function getAllCourses() {
   return axios
-    .get(apiBaseUrl + "course/all", {
-      headers: { Authorization: userService.getToken() }
-    })
+    .get(apiBaseUrl + "course/all", authHeader)
     .then(res => {
       if (res.status !== 200) {
         return Promise.reject(res.statusText);

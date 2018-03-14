@@ -1,11 +1,10 @@
 import axios from "axios";
 import { userService } from "../_services";
+import { apiBaseUrl } from "../_helpers";
 
 export const settingsService = {
   getSettings
 };
-
-const apiBaseUrl = "https://hhkurssit.markl.fi/";
 
 function getSettings() {
   return axios

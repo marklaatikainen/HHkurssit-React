@@ -1,5 +1,6 @@
 import axios from "axios";
 import decode from "jwt-decode";
+import { apiBaseUrl, authHeader } from "../_helpers";
 
 export const userService = {
   login,
@@ -11,16 +12,12 @@ export const userService = {
   getUserInfo
 };
 
-const apiBaseUrl = "https://hhkurssit.markl.fi/";
-
 function logout() {
   localStorage.removeItem("authorization_token");
 }
 
 async function getUserInfo() {
-  const res = await axios.get(apiBaseUrl + "user/" + getProfile().sub, {
-    headers: { Authorization: getToken() }
-  });
+  const res = await axios.get(apiBaseUrl + "user/" + getProfile().sub, authHeader);
   return res.data;
 }
 

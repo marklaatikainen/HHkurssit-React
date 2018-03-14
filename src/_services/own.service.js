@@ -1,5 +1,7 @@
 import axios from "axios";
+
 import { userService } from "../_services";
+import { apiBaseUrl, authHeader } from "../_helpers";
 
 export const ownService = {
   getOwnCourses,
@@ -8,15 +10,11 @@ export const ownService = {
   restoreDefaults
 };
 
-const apiBaseUrl = "https://hhkurssit.markl.fi/";
-
 async function getOwnCourses() {
   const user = await userService.getUserInfo();
 
   return axios
-    .get(apiBaseUrl + "user/" + user.id + "/" + user.userGroup, {
-      headers: { Authorization: userService.getToken() }
-    })
+    .get(apiBaseUrl + "user/" + user.id + "/" + user.userGroup, authHeader)
     .then(res => {
       if (res.status !== 200) {
         return Promise.reject(res.statusText);
@@ -31,9 +29,7 @@ async function deleteCourse(course) {
   return axios
     .delete(
       apiBaseUrl + "user/own/" + user.id + "/" + user.userGroup + "/" + course,
-      {
-        headers: { Authorization: userService.getToken() }
-      }
+      authHeader
     )
     .then(res => {
       return "Kurssi poistettu";
@@ -49,9 +45,7 @@ async function addCourse(course) {
     .post(
       apiBaseUrl + "user/own/" + user.id + "/" + user.userGroup + "/" + course,
       {},
-      {
-        headers: { Authorization: userService.getToken() }
-      }
+      authHeader
     )
     .then(res => {
       return "Kurssi lisätty";
@@ -65,9 +59,7 @@ async function restoreDefaults() {
   const user = await userService.getUserInfo();
 
   return axios
-    .delete(apiBaseUrl + "user/own/restore/" + user.id, {
-      headers: { Authorization: userService.getToken() }
-    })
+    .delete(apiBaseUrl + "user/own/restore/" + user.id, authHeader)
     .then(res => {
       if (res.status !== 200) {
         return Promise.reject("Virhe alkuperäisten kurssien palautuksessa!");
