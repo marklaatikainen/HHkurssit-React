@@ -39,14 +39,12 @@ async function deleteCourse(course) {
       return "Kurssi poistettu";
     })
     .catch(error => {
-      console.log(error)
       return Promise.reject("Virhe kurssin poistossa!");
     });
 }
 
 async function addCourse(course) {
   const user = await userService.getUserInfo();
-  console.log(apiBaseUrl + "user/own/" + user.id + "/" + user.userGroup + "/" + course)
   return axios
     .post(
       apiBaseUrl + "user/own/" + user.id + "/" + user.userGroup + "/" + course,
@@ -59,7 +57,6 @@ async function addCourse(course) {
       return "Kurssi lisätty";
     })
     .catch(error => {
-      console.log(error)
       return Promise.reject("Virhe kurssin lisäyksessä!");
     });
 }
